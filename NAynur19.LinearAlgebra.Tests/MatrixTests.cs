@@ -23,7 +23,7 @@ namespace NAynur19.LinearAlgebra.Tests
 		[MemberData(nameof(Multiplication_SpecialScalar_Data))]
 		public void Multiplication_SpecialScalar_CorrectWork(double[,] matrix, double scalar, double[,] expectedMatrix)
 		{
-			var actualMatrix = new Matrix(matrix).Multiplication(scalar);
+			var actualMatrix = new Matrix(matrix).MultiplicationByNumber(scalar);
 			var eps = Math.Pow(10, -12);
 
 			for(int row = 0; row < actualMatrix.Rows; row++)
@@ -164,7 +164,7 @@ namespace NAynur19.LinearAlgebra.Tests
 		[MemberData(nameof(Multiplication_Scalar_Data))]
 		public void Multiplication_Scalar_CorrectWork(double[,] matrix, double scalar, double[,] expectedMatrix)
 		{
-			var actualMatrix = new Matrix(matrix).Multiplication(scalar);
+			var actualMatrix = new Matrix(matrix).MultiplicationByNumber(scalar);
 			var eps = Math.Pow(10, -12);
 
 			for(int row = 0; row < actualMatrix.Rows; row++)
