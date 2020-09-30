@@ -168,8 +168,8 @@ namespace NAynur19.LinearAlgebra
 				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
 			}
 
-			(int, T) max = (0, vector[0]);
-			for(int i = 1; i < vector.Length; i++)
+			(int, T) max = (start, vector[start]);
+			for(int i = start; i < end; i++)
 			{
 				if(max.Item2.CompareTo(vector[i]) < 0)
 				{
@@ -227,8 +227,8 @@ namespace NAynur19.LinearAlgebra
 				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
 			}
 
-			(int, T) min = (0, vector[0]);
-			for(int i = 1; i < vector.Length; i++)
+			(int, T) min = (start, vector[start]);
+			for(int i = start; i < end; i++)
 			{
 				if(min.Item2.CompareTo(vector[i]) > 0)
 				{
