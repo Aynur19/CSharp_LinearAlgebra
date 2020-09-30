@@ -150,9 +150,22 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает кортеж: индекс и максимальное значение элемента вектора.</returns>
 		public static (int, T) GetMax<T>(T[] vector) where T : IComparable
 		{
-			if(vector.Length < 0)
+			return GetMax(vector, 0, vector.Length - 1);
+		}
+
+		/// <summary>
+		/// Получение максимального значения и индекса данного элемента вектора из диапазона значений.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="start">Начальный индекс.</param>
+		/// <param name="end">Конечный индекс.</param>
+		/// <returns>Возвращает кортеж: индекс и максимальное значение элемента вектора.</returns>
+		public static (int, T) GetMax<T>(T[] vector, int start, int end) where T : IComparable
+		{
+			if(!IndexIsValid(vector, start, end))
 			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeLessOneException);
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
 			}
 
 			(int, T) max = (0, vector[0]);
@@ -196,9 +209,22 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает кортеж: индекс и минимальное значение элемента вектора.</returns>
 		public static (int, T) GetMin<T>(T[] vector) where T : IComparable
 		{
-			if(vector.Length < 0)
+			return GetMin(vector, 0, vector.Length - 1);
+		}
+
+		/// <summary>
+		/// Получение минимального значения и индекса данного элемента вектора из диапазона значений.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="start">Начальный индекс.</param>
+		/// <param name="end">Конечный индекс.</param>
+		/// <returns>Возвращает кортеж: индекс и минимальное значение элемента вектора.</returns>
+		public static (int, T) GetMin<T>(T[] vector, int start, int end) where T : IComparable
+		{
+			if(!IndexIsValid(vector, start, end))
 			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeLessOneException);
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
 			}
 
 			(int, T) min = (0, vector[0]);
@@ -254,6 +280,43 @@ namespace NAynur19.LinearAlgebra
 		public bool IndexIsValid(int index)
 		{
 			return (index >= 0 && index < Dimension);
+		}
+
+		/// <summary>
+		/// Проверка индексов вектора.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="start">Начальный индекс.</param>
+		/// <param name="end">Конечный индекс.</param>
+		/// <returns>Возвращает результат проверки индексов вектора.</returns>
+		public bool IndexIsValid(int start, int end)
+		{
+			return IndexIsValid(this, start, end);
+		}
+
+		/// <summary>
+		/// Проверка индексов вектора.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="start">Начальный индекс.</param>
+		/// <param name="end">Конечный индекс.</param>
+		/// <returns>Возвращает результат проверки индексов вектора.</returns>
+		public static bool IndexIsValid(Vector vector, int start, int end)
+		{
+			return IndexIsValid(vector.Items, start, end);
+		}
+
+		/// <summary>
+		/// Проверка индексов вектора.
+		/// </summary>
+		/// <typeparam name="T">Обобщенный тип данных.</typeparam>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="start">Начальный индекс.</param>
+		/// <param name="end">Конечный индекс.</param>
+		/// <returns>Возвращает результат проверки индексов вектора.</returns>
+		public static bool IndexIsValid<T>(T[] vector, int start, int end)
+		{
+			return (start >= 0 && start < vector.Length && end >= 0 && end < vector.Length && start <= end);
 		}
 		#endregion
 
