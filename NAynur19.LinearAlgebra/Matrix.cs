@@ -1,7 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Text;
 
 namespace NAynur19.LinearAlgebra
 {
@@ -177,6 +174,62 @@ namespace NAynur19.LinearAlgebra
 				{
 					this[row, column] = defaultValue;
 				}
+			}
+		}
+
+		/// <summary>
+		/// Установка вектора в строку матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="vector">Вектор.</param>
+		/// <param name="row">Индекс строки.</param>
+		public void SetRow(Vector vector, int row)
+		{
+			SetRow(vector.Items, row);
+		}
+
+		/// <summary>
+		/// Установка вектора в строку матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="vector">Вектор.</param>
+		/// <param name="row">Индекс строки.</param>
+		public void SetRow(double[] vector, int row)
+		{
+			if(!RowIndexIsValid(this, row) || vector.Length != Columns)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfMatrixSizeException);
+			}
+
+			for(int column = 0; column < vector.Length; column++)
+			{
+				this[row, column] = vector[column];
+			}
+		}
+
+		/// <summary>
+		/// Установка вектора в столбец матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="vector">Вектор.</param>
+		/// <param name="column">Индекс столбца.</param>
+		public void SetColumn(Vector vector, int column)
+		{
+			SetColumn(vector.Items, column);
+		}
+
+		/// <summary>
+		/// Установка вектора в столбец матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="vector">Вектор.</param>
+		/// <param name="column">Индекс столбца.</param>
+		public void SetColumn(double[] vector, int column)
+		{
+			if(!ColumnIndexIsValid(this, column) || vector.Length != this.Rows)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfMatrixSizeException);
+			}
+
+			for(int row = 0; row < vector.Length; row++)
+			{
+				this[row, column] = vector[row];
 			}
 		}
 		#endregion

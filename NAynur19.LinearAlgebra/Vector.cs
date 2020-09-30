@@ -1,4 +1,6 @@
-﻿namespace NAynur19.LinearAlgebra
+﻿using System;
+
+namespace NAynur19.LinearAlgebra
 {
 	/// <summary>
 	/// Вектор.
@@ -86,35 +88,7 @@
 		}
 		#endregion
 
-		#region Getters And Setters
-		/// <summary>
-		/// Установка размерности вектора.
-		/// </summary>
-		/// <param name="dimension">Размерность вектора.</param>
-		private void SetDimension(int dimension)
-		{
-			if(dimension < 1)
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeLessOneException);
-			}
-			else
-			{
-				Dimension = dimension;
-			}
-		}
-
-		/// <summary>
-		/// Заполнение вектора одним значением.
-		/// </summary>
-		/// <param name="item"></param>
-		public void SetItems(double item)
-		{
-			for(int index = 0; index < Dimension; index++)
-			{
-				this[index] = item;
-			}
-		}
-
+		#region Indexators
 		/// <summary>
 		/// Индексатор вектора.
 		/// </summary>
@@ -143,6 +117,130 @@
 				{
 					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
 				}
+			}
+		}
+		#endregion
+
+		#region Getters
+		#region Get Maximum
+		/// <summary>
+		/// Получение максимального значения и индекса данного элемента вектора.
+		/// </summary>
+		/// <returns>Возвращает кортеж: индекс и максимальное значение элемента текущего вектора.</returns>
+		public (int, double) GetMax()
+		{
+			return GetMax(this);
+		}
+
+		/// <summary>
+		/// Получение максимального значения и индекса данного элемента вектора.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает кортеж: индекс и максимальное значение элемента вектора.</returns>
+		public static (int, double) GetMax(Vector vector)
+		{
+			return GetMax(vector.Items);
+		}
+
+		/// <summary>
+		/// Получение максимального значения и индекса данного элемента вектора.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает кортеж: индекс и максимальное значение элемента вектора.</returns>
+		public static (int, T) GetMax<T>(T[] vector) where T : IComparable
+		{
+			if(vector.Length < 0)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeLessOneException);
+			}
+
+			(int, T) max = (0, vector[0]);
+			for(int i = 1; i < vector.Length; i++)
+			{
+				if(max.Item2.CompareTo(vector[i]) < 0)
+				{
+					max = (i, vector[i]);
+				}
+			}
+
+			return max;
+		}
+		#endregion
+
+		#region Get Minimum
+		/// <summary>
+		/// Получение минимального значения и индекса данного элемента вектора.
+		/// </summary>
+		/// <returns>Возвращает кортеж: индекс и минимальное значение элемента текущего вектора.</returns>
+		public (int, double) GetMin()
+		{
+			return GetMin(this);
+		}
+
+		/// <summary>
+		/// Получение минимального значения и индекса данного элемента вектора.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает кортеж: индекс и минимальное значение элемента вектора.</returns>
+		public static (int, double) GetMin(Vector vector)
+		{
+			return GetMin(vector.Items);
+		}
+
+		/// <summary>
+		/// Получение минимального значения и индекса данного элемента вектора.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает кортеж: индекс и минимальное значение элемента вектора.</returns>
+		public static (int, T) GetMin<T>(T[] vector) where T : IComparable
+		{
+			if(vector.Length < 0)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeLessOneException);
+			}
+
+			(int, T) min = (0, vector[0]);
+			for(int i = 1; i < vector.Length; i++)
+			{
+				if(min.Item2.CompareTo(vector[i]) > 0)
+				{
+					min = (i, vector[i]);
+				}
+			}
+
+			return min;
+		}
+		#endregion
+		#endregion
+
+		#region Setters
+		/// <summary>
+		/// Установка размерности вектора.
+		/// </summary>
+		/// <param name="dimension">Размерность вектора.</param>
+		private void SetDimension(int dimension)
+		{
+			if(dimension < 1)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeLessOneException);
+			}
+			else
+			{
+				Dimension = dimension;
+			}
+		}
+
+		/// <summary>
+		/// Заполнение вектора одним значением.
+		/// </summary>
+		/// <param name="item"></param>
+		public void SetItems(double item)
+		{
+			for(int index = 0; index < Dimension; index++)
+			{
+				this[index] = item;
 			}
 		}
 		#endregion
