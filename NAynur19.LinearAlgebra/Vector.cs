@@ -315,14 +315,52 @@ namespace NAynur19.LinearAlgebra
 		#endregion
 
 		#region Shift Items To Left
+		/// <summary>
+		/// Сдвиг элементов вектора влево.
+		/// </summary>
+		/// <param name="item">Элемент, заполняемый на место свинутого элемента.</param>
+		/// <param name="start">Начальный индекс сдвигаемого элемента.</param>
+		public void ShiftItemsToLeft(double item, int start)
+		{
+			ShiftItemsToLeft(this, item, start);
+		}
 
-		//public static void ShiftItemsToLeft<T>(T[] vector, T item, int start)
-		//{
-		//	if(!IndexIsValid(start))
-		//	{
+		/// <summary>
+		/// Сдвиг элементов вектора влево.
+		/// </summary>
+		/// <param name="vector">Вектора данных.</param>
+		/// <param name="item">Элемент, заполняемый на место свинутого элемента.</param>
+		/// <param name="start">Начальный индекс сдвигаемого элемента.</param>
+		public static void ShiftItemsToLeft(Vector vector, double item, int start)
+		{
+			ShiftItemsToLeft(vector.Items, item, start);
+		}
 
-		//	}
-		//}
+		/// <summary>
+		/// Сдвиг элементов вектора влево.
+		/// </summary>
+		/// <param name="vector">Вектора данных.</param>
+		/// <param name="item">Элемент, заполняемый на место свинутого элемента.</param>
+		/// <param name="start">Начальный индекс сдвигаемого элемента.</param>
+		public static void ShiftItemsToLeft<T>(T[] vector, T item, int start)
+		{
+			if(!IndexIsValid(vector, start))
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
+			}
+
+			if(start == 0)
+			{
+				return;
+			}
+
+			for(int i = start; i < vector.Length; i++)
+			{
+				vector[start - 1] = vector[start];
+			}
+
+			vector[vector.Length - 1] = item;
+		}
 		#endregion
 
 		#region Validation
@@ -350,7 +388,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка индекса вектора.
 		/// </summary>
-		/// <typeparam name="T">Тип данных, реализующий интерфес IComparable.</typeparam>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
 		/// <param name="vector">Вектор данных.</param>
 		/// <param name="index">Проверяемый индекс.</param>
 		/// <returns>Возвращает результат проверки индекса вектора.</returns>
@@ -386,7 +424,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка индексов вектора.
 		/// </summary>
-		/// <typeparam name="T">Обобщенный тип данных.</typeparam>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
 		/// <param name="vector">Вектор данных.</param>
 		/// <param name="start">Начальный индекс.</param>
 		/// <param name="end">Конечный индекс.</param>
