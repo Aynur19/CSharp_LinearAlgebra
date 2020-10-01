@@ -356,7 +356,7 @@ namespace NAynur19.LinearAlgebra
 
 			for(int i = start; i < vector.Length; i++)
 			{
-				vector[start - 1] = vector[start];
+				vector[i - 1] = vector[i];
 			}
 
 			vector[vector.Length - 1] = item;
