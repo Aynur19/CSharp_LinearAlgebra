@@ -314,15 +314,49 @@ namespace NAynur19.LinearAlgebra
 		#endregion
 		#endregion
 
+		#region Shift Items To Left
+
+		//public static void ShiftItemsToLeft<T>(T[] vector, T item, int start)
+		//{
+		//	if(!IndexIsValid(start))
+		//	{
+
+		//	}
+		//}
+		#endregion
+
 		#region Validation
 		/// <summary>
-		/// Проверка индекса на валидность.
+		/// Проверка индекса вектора.
 		/// </summary>
-		/// <param name="index">Индекс элемента вектора.</param>
-		/// <returns>Возвращает истину, если вектор имеет элемент с данныйм индексом, иноче возвращает ложь.</returns>
+		/// <param name="index">Проверяемый индекс.</param>
+		/// <returns>Возвращает результат проверки индекса вектора.</returns>
 		public bool IndexIsValid(int index)
 		{
-			return (index >= 0 && index < Dimension);
+			return IndexIsValid(this, index);
+		}
+
+		/// <summary>
+		/// Проверка индекса вектора.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="index">Проверяемый индекс.</param>
+		/// <returns>Возвращает результат проверки индекса вектора.</returns>
+		public static bool IndexIsValid(Vector vector, int index)
+		{
+			return IndexIsValid(vector.Items, index);
+		}
+
+		/// <summary>
+		/// Проверка индекса вектора.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфес IComparable.</typeparam>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="index">Проверяемый индекс.</param>
+		/// <returns>Возвращает результат проверки индекса вектора.</returns>
+		public static bool IndexIsValid<T>(T[] vector, int index)
+		{
+			return (index >= 0 && index < vector.Length);
 		}
 
 		/// <summary>
