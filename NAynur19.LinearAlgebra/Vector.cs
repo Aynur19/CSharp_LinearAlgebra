@@ -169,7 +169,7 @@ namespace NAynur19.LinearAlgebra
 			}
 
 			(int, T) max = (start, vector[start]);
-			for(int i = start; i < end; i++)
+			for(int i = start; i <= end; i++)
 			{
 				if(max.Item2.CompareTo(vector[i]) < 0)
 				{
@@ -228,7 +228,7 @@ namespace NAynur19.LinearAlgebra
 			}
 
 			(int, T) min = (start, vector[start]);
-			for(int i = start; i < end; i++)
+			for(int i = start; i <= end; i++)
 			{
 				if(min.Item2.CompareTo(vector[i]) > 0)
 				{
@@ -258,17 +258,60 @@ namespace NAynur19.LinearAlgebra
 			}
 		}
 
+		#region Set Items
 		/// <summary>
 		/// Заполнение вектора одним значением.
 		/// </summary>
 		/// <param name="item"></param>
 		public void SetItems(double item)
 		{
-			for(int index = 0; index < Dimension; index++)
+			SetItems(this, item, 0, Dimension - 1);
+		}
+
+		/// <summary>
+		/// Заполнение вектора одним значением для указанного диапазона.
+		/// </summary>
+		/// <param name="item">Заполняемое значение.</param>
+		/// <param name="start">Начальный индекс заполнения.</param>
+		/// <param name="end">Конечный индекс заполнения.</param>
+		public void SetItems(double item, int start, int end)
+		{
+			SetItems(this, item, start, end);
+		}
+
+		/// <summary>
+		/// Заполнение вектора одним значением для указанного диапазона.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="item">Заполняемое значение.</param>
+		/// <param name="start">Начальный индекс заполнения.</param>
+		/// <param name="end">Конечный индекс заполнения.</param>
+		public static void SetItems(Vector vector, double item, int start, int end)
+		{
+			SetItem(vector.Items, item, start, end);
+		}
+
+		/// <summary>
+		/// Заполнение вектора одним значением для указанного диапазона.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComporable.</typeparam>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="item">Заполняемое значение.</param>
+		/// <param name="start">Начальный индекс заполнения.</param>
+		/// <param name="end">Конечный индекс заполнения.</param>
+		public static void SetItem<T>(T[] vector, T item, int start, int end)
+		{
+			if(!IndexIsValid(vector, start, end))
 			{
-				this[index] = item;
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
+			}
+
+			for(int i = start; i <= end; i++)
+			{
+				vector[i] = item;
 			}
 		}
+		#endregion
 		#endregion
 
 		#region Validation
