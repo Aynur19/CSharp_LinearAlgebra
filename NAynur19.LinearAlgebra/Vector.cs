@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NAynur19.LinearAlgebra
 {
@@ -122,6 +123,186 @@ namespace NAynur19.LinearAlgebra
 		#endregion
 
 		#region Getters
+		#region Get Subvector
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// </summary>
+		/// <param name="start">Начальный индекс подвектора.</param>
+		/// <param name="end">Конечный индекс подвектора.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public Vector GetSubvector(int start, int end)
+		{
+			return GetSubvector(this, start, end);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// </summary>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="start">Начальный индекс подвектора.</param>
+		/// <param name="end">Конечный индекс подвектора.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static Vector GetSubvector(Vector vector, int start, int end)
+		{
+			var subvector = GetSubvector(vector.Items, start, end);
+			return new Vector(subvector);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// </summary>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="start">Начальный индекс подвектора.</param>
+		/// <param name="end">Конечный индекс подвектора.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static T[] GetSubvector<T>(T[] vector, int start, int end)
+		{
+			if(!IndexIsValid(vector, start, end))
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
+			}
+
+			var result = new T[end - start + 1];
+			for(int i = 0; i < result.Length; i++)
+			{
+				result[i] = vector[start + i];
+			}
+
+			return result;
+		}
+		#endregion
+
+		#region Get Subvector Large Items
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых больше (или равно) указанного элемента.
+		/// </summary>
+		/// <param name="item">Нижняя граница значений подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public Vector GetSubvectorLargeItems(double item, bool itemIsInclude = true)
+		{
+			return GetSubvectorLargeItems(this, item, itemIsInclude);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых больше (или равно) указанного элемента.
+		/// </summary>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="item">Нижняя граница значений подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static Vector GetSubvectorLargeItems(Vector vector, double item, bool itemIsInclude = true)
+		{
+			var subvector = GetSubvectorLargeItems(vector.Items, item, itemIsInclude);
+			return new Vector(subvector);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых больше (или равно) указанного элемента.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="item">Нижняя граница значений подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static T[] GetSubvectorLargeItems<T>(T[] vector, T item, bool itemIsInclude = true) where T : IComparable
+		{
+			var lessItems = new List<T>();
+
+			if(itemIsInclude)
+			{
+				for(int i = 0; i < vector.Length; i++)
+				{
+					if(item.CompareTo(vector[i]) >= 0)
+					{
+						lessItems.Add(vector[i]);
+					}
+				}
+			}
+			else
+			{
+				for(int i = 0; i < vector.Length; i++)
+				{
+					if(item.CompareTo(vector[i]) > 0)
+					{
+						lessItems.Add(vector[i]);
+					}
+				}
+			}
+
+			return lessItems.ToArray();
+		}
+		#endregion
+
+		#region Get Subvector Less Items
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых меньше (или равно) указанного элемента.
+		/// </summary>
+		/// <param name="item">Верхняя граница значений подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public Vector GetSubvectorLessItems(double item, bool itemIsInclude = true)
+		{
+			return GetSubvectorLessItems(this, item, itemIsInclude);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых меньше (или равно) указанного элемента.
+		/// </summary>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="item">Верхняя граница значений подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static Vector GetSubvectorLessItems(Vector vector, double item, bool itemIsInclude = true)
+		{
+			var subvector = GetSubvectorLessItems(vector.Items, item, itemIsInclude);
+			return new Vector(subvector);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых меньше (или равно) указанного элемента.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="item">Верхняя граница значений подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static T[] GetSubvectorLessItems<T>(T[] vector, T item, bool itemIsInclude = true) where T : IComparable
+		{
+			var lessItems = new List<T>();
+
+			if(itemIsInclude)
+			{
+				for(int i = 0; i < vector.Length; i++)
+				{
+					if(item.CompareTo(vector[i]) <= 0)
+					{
+						lessItems.Add(vector[i]);
+					}
+				}
+			}
+			else
+			{
+				for(int i = 0; i < vector.Length; i++)
+				{
+					if(item.CompareTo(vector[i]) < 0)
+					{
+						lessItems.Add(vector[i]);
+					}
+				}
+			}
+
+			return lessItems.ToArray();
+		}
+		#endregion
+
 		#region Get Maximum
 		/// <summary>
 		/// Получение максимального значения и индекса данного элемента вектора.
