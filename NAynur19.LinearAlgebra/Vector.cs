@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NAynur19.LinearAlgebra
 {
@@ -123,6 +124,38 @@ namespace NAynur19.LinearAlgebra
 		#endregion
 
 		#region Getters
+		#region Get Middle Item
+		/// <summary>
+		/// Получение элемента вектора, находящегося в середине.
+		/// </summary>
+		/// <returns>Возвращает кортеж - индекс и элемент вектора, находящийся в середине.</returns>
+		public (int, double) GetMiddleItem()
+		{
+			return GetMiddleItem(this);
+		}
+
+		/// <summary>
+		/// Получение элемента вектора, находящегося в середине.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает кортеж - индекс и элемент вектора, находящийся в середине.</returns>
+		public static (int, double) GetMiddleItem(Vector vector)
+		{
+			return GetMiddleItem(vector.Items);
+		}
+
+		/// <summary>
+		/// Получение элемента вектора, находящегося в середине.
+		/// </summary>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает кортеж - индекс и элемент вектора, находящийся в середине.</returns>
+		public static (int, T) GetMiddleItem<T>(T[] vector)
+		{
+			var middle = (int)vector.Length / 2;
+			return (middle, vector[middle]);
+		}
+		#endregion
 		#region Get Subvector
 		/// <summary>
 		/// Получение подвектора данных из текущего вектора.
@@ -217,7 +250,7 @@ namespace NAynur19.LinearAlgebra
 			{
 				for(int i = 0; i < vector.Length; i++)
 				{
-					if(item.CompareTo(vector[i]) >= 0)
+					if(item.CompareTo(vector[i]) <= 0)
 					{
 						lessItems.Add(vector[i]);
 					}
@@ -227,7 +260,7 @@ namespace NAynur19.LinearAlgebra
 			{
 				for(int i = 0; i < vector.Length; i++)
 				{
-					if(item.CompareTo(vector[i]) > 0)
+					if(item.CompareTo(vector[i]) < 0)
 					{
 						lessItems.Add(vector[i]);
 					}
@@ -235,6 +268,74 @@ namespace NAynur19.LinearAlgebra
 			}
 
 			return lessItems.ToArray();
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых больше (или равно) указанного элемента.
+		/// </summary>
+		/// <param name="item">Кортеж состоящий из индекса и элемента - нижней границы подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public Vector GetSubvectorLargeItems((int, double) item, bool itemIsInclude = true)
+		{
+			return GetSubvectorLargeItems(this, item, itemIsInclude);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых больше (или равно) указанного элемента.
+		/// </summary>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="item">Кортеж, состоящий из индекса и элемента - нижней границы подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static Vector GetSubvectorLargeItems(Vector vector, (int, double) item, bool itemIsInclude = true)
+		{
+			var subvector = GetSubvectorLargeItems(vector.Items, item, itemIsInclude);
+			return new Vector(subvector);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых больше (или равно) указанного элемента.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="item">Кортеж, состоящий из индекса и элемента - нижней границы подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанное значение нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static T[] GetSubvectorLargeItems<T>(T[] vector, (int, T) item, bool itemIsInclude = true) where T : IComparable
+		{
+			if(!IndexIsValid(vector, item.Item1))
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
+			}
+
+			var largeItems = new List<T>();
+
+			if(itemIsInclude)
+			{
+				for(int i = 0; i < vector.Length; i++)
+				{
+					if(item.Item2.CompareTo(vector[i]) <= 0)
+					{
+						largeItems.Add(vector[i]);
+					}
+				}
+			}
+			else
+			{
+				for(int i = 0; i < vector.Length; i++)
+				{
+					if(item.Item2.CompareTo(vector[i]) <= 0 && item.Item1 != i)
+					{
+						largeItems.Add(vector[i]);
+					}
+				}
+			}
+
+			return largeItems.ToArray();
 		}
 		#endregion
 
@@ -282,7 +383,7 @@ namespace NAynur19.LinearAlgebra
 			{
 				for(int i = 0; i < vector.Length; i++)
 				{
-					if(item.CompareTo(vector[i]) <= 0)
+					if(item.CompareTo(vector[i]) >= 0)
 					{
 						lessItems.Add(vector[i]);
 					}
@@ -292,7 +393,74 @@ namespace NAynur19.LinearAlgebra
 			{
 				for(int i = 0; i < vector.Length; i++)
 				{
-					if(item.CompareTo(vector[i]) < 0)
+					if(item.CompareTo(vector[i]) > 0)
+					{
+						lessItems.Add(vector[i]);
+					}
+				}
+			}
+
+			return lessItems.ToArray();
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых меньше (или равно) указанного элемента.
+		/// </summary>
+		/// <param name="item">Кортеж, состоящий из индекса и элемента - верхней границы подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанный элемент нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public Vector GetSubvectorLessItems((int, double) item, bool itemIsInclude = true)
+		{
+			return GetSubvectorLessItems(this, item, itemIsInclude);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых меньше (или равно) указанного элемента.
+		/// </summary>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="item">Кортеж, состоящий из индекса и элемента - верхней границы подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанный элемент нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static Vector GetSubvectorLessItems(Vector vector, (int, double) item, bool itemIsInclude = true)
+		{
+			var subvector = GetSubvectorLessItems(vector.Items, item, itemIsInclude);
+			return new Vector(subvector);
+		}
+
+		/// <summary>
+		/// Получение подвектора данных из текущего вектора.
+		/// Подвектор данных должен содержать элементы, значения которых меньше (или равно) указанного элемента.
+		/// </summary>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="vector">Вектор данных, из которого нужно получить подвектор.</param>
+		/// <param name="item">Кортеж, состоящий из индекса и элемента - верхней границы подвектора.</param>
+		/// <param name="itemIsInclude">Указатель того, что указанный элемент нужно включить в подвектор.</param>
+		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
+		public static T[] GetSubvectorLessItems<T>(T[] vector, (int, T) item, bool itemIsInclude = true) where T : IComparable
+		{
+			if(!IndexIsValid(vector, item.Item1))
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
+			}
+			var lessItems = new List<T>();
+
+			if(itemIsInclude)
+			{
+				for(int i = 0; i < vector.Length; i++)
+				{
+					if(item.Item2.CompareTo(vector[i]) >= 0)
+					{
+						lessItems.Add(vector[i]);
+					}
+				}
+			}
+			else
+			{
+				for(int i = 0; i < vector.Length; i++)
+				{
+					if(item.Item2.CompareTo(vector[i]) >= 0 && item.Item1 != i)
 					{
 						lessItems.Add(vector[i]);
 					}
@@ -493,6 +661,48 @@ namespace NAynur19.LinearAlgebra
 			}
 		}
 		#endregion
+		#endregion
+
+		#region Vectors Concatination
+		/// <summary>
+		/// Конкатенация векторов.
+		/// </summary>
+		/// <param name="vectors">Массив векторов.</param>
+		/// <returns>Возвращает вектор - результат конкатенации векторов.</returns>
+		public static Vector VectorsConcatination(Vector[] vectors)
+		{
+			var result = vectors.Select(v => v.Items).ToArray();
+			return new Vector(VectorsConcatination(result));
+		}
+
+		/// <summary>
+		/// Конкатенация векторов.
+		/// </summary>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
+		/// <param name="vectors">Массив векторов.</param>
+		/// <returns>Возвращает вектор - результат конкатенации векторов.</returns>
+		public static T[] VectorsConcatination<T>(params T[][] vectors)  
+		{
+			var count = 0;
+			for(int i = 0; i < vectors.GetLength(0); i++)
+			{
+				count += vectors[i].Length;
+			}
+
+			var result = new T[count];
+			var index = 0;
+			
+			for(int i = 0; i < vectors.GetLength(0); i++)
+			{
+				for(int j = 0; j < vectors[i].Length; j++)
+				{
+					result[index] = vectors[i][j];
+					index++;
+				}
+			}
+
+			return result;
+		}
 		#endregion
 
 		#region Shift Items To Left
