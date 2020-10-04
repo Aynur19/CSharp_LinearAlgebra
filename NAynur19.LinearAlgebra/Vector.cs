@@ -788,6 +788,7 @@ namespace NAynur19.LinearAlgebra
 			return (index >= 0 && index < vector.Length);
 		}
 
+		#region Vector Start and End Index Validation
 		/// <summary>
 		/// Проверка индексов вектора.
 		/// </summary>
@@ -795,9 +796,9 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="start">Начальный индекс.</param>
 		/// <param name="end">Конечный индекс.</param>
 		/// <returns>Возвращает результат проверки индексов вектора.</returns>
-		public bool IndexIsValid(int start, int end)
+		public bool StartEndIsValid(int start, int end)
 		{
-			return IndexIsValid(this, start, end);
+			return StartEndIsValid(this, start, end);
 		}
 
 		/// <summary>
@@ -807,9 +808,9 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="start">Начальный индекс.</param>
 		/// <param name="end">Конечный индекс.</param>
 		/// <returns>Возвращает результат проверки индексов вектора.</returns>
-		public static bool IndexIsValid(Vector vector, int start, int end)
+		public static bool StartEndIsValid(Vector vector, int start, int end)
 		{
-			return IndexIsValid(vector.Items, start, end);
+			return StartEndIsValid(vector.Items, start, end);
 		}
 
 		/// <summary>
@@ -820,10 +821,26 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="start">Начальный индекс.</param>
 		/// <param name="end">Конечный индекс.</param>
 		/// <returns>Возвращает результат проверки индексов вектора.</returns>
-		public static bool IndexIsValid<T>(T[] vector, int start, int end)
+		public static bool StartEndIsValid<T>(T[] vector, int start, int end)
 		{
-			return (start >= 0 && start < vector.Length && end >= 0 && end < vector.Length && start <= end);
+			if(start < 0 || start >= vector.Length)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.StartIndexOutOfVectorSizeException);
+			}
+
+			if(end < 0 || end >= vector.Length)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.EndIndexOutOfVectorSizeException);
+			}
+
+			if(start > end)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.EndIndexLessStartIndexOfVectorException);
+			}
+
+			return true;
 		}
+		#endregion
 		#endregion
 
 		#region Size Is Equal
