@@ -754,7 +754,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Validation
+		#region Vector Index Is Validation
 		/// <summary>
 		/// Проверка индекса вектора.
 		/// </summary>
@@ -785,8 +785,14 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает результат проверки индекса вектора.</returns>
 		public static bool IndexIsValid<T>(T[] vector, int index)
 		{
-			return (index >= 0 && index < vector.Length);
+			if(index < 0 && index >= vector.Length)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
+			}
+
+			return true;
 		}
+		#endregion
 
 		#region Vector Start and End Index Validation
 		/// <summary>
@@ -840,7 +846,6 @@ namespace NAynur19.LinearAlgebra
 
 			return true;
 		}
-		#endregion
 		#endregion
 
 		#region Size Is Equal
