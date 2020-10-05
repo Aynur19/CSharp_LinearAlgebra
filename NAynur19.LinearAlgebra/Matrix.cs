@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace NAynur19.LinearAlgebra
@@ -9,7 +8,7 @@ namespace NAynur19.LinearAlgebra
 	/// </summary>
 	public class Matrix
 	{
-		#region Properties
+		#region Matrix Properties
 		/// <summary>
 		/// Количество строк.
 		/// </summary>
@@ -26,7 +25,7 @@ namespace NAynur19.LinearAlgebra
 		public double[,] Items { get; private set; }
 		#endregion
 
-		#region Indexator
+		#region Matrix Indexator
 		/// <summary>
 		/// Индексатор.
 		/// </summary>
@@ -37,30 +36,20 @@ namespace NAynur19.LinearAlgebra
 		{
 			get
 			{
-				if(IndexIsValid(row, column))
-				{
-					return Items[row, column];
-				}
-				else
-				{
-					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfMatrixSizeException);
-				}
+				IndexIsValid(row, column, true);
+				return Items[row, column];
 			}
 			set
 			{
-				if(IndexIsValid(row, column))
+				if(IndexIsValid(row, column, true))
 				{
 					Items[row, column] = value;
-				}
-				else
-				{
-					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfMatrixSizeException);
 				}
 			}
 		}
 		#endregion
 
-		#region Constructors
+		#region Matrix Constructors
 		/// <summary>
 		/// Конструктор.
 		/// </summary>
