@@ -205,7 +205,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Get Subvector Large Items
+		#region Vector Get Subvector Large Items
 		/// <summary>
 		/// Получение подвектора данных из текущего вектора.
 		/// Подвектор данных должен содержать элементы, значения которых больше (или равно) указанного элемента.
@@ -306,10 +306,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
 		public static T[] GetSubvectorLargeItems<T>(T[] vector, (int, T) item, bool itemIsInclude = true) where T : IComparable
 		{
-			if(!IndexIsValid(vector, item.Item1))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-			}
+			IndexIsValid(vector, item.Item1);
 
 			var largeItems = new List<T>();
 
