@@ -470,7 +470,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Get Maximum
+		#region Vector Get Maximum Item
 		/// <summary>
 		/// Получение максимального значения и индекса данного элемента вектора.
 		/// </summary>
@@ -511,10 +511,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает кортеж: индекс и максимальное значение элемента вектора.</returns>
 		public static (int, T) GetMax<T>(T[] vector, int start, int end) where T : IComparable
 		{
-			if(!IndexIsValid(vector, start, end))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-			}
+			StartEndIsValid(vector, start, end);
 
 			(int, T) max = (start, vector[start]);
 			for(int i = start; i <= end; i++)
