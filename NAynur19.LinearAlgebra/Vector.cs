@@ -90,7 +90,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Indexators
+		#region Vector Indexator
 		/// <summary>
 		/// Индексатор вектора.
 		/// </summary>
@@ -100,14 +100,9 @@ namespace NAynur19.LinearAlgebra
 		{
 			get
 			{
-				if(IndexIsValid(index))
-				{
-					return Items[index];
-				}
-				else
-				{
-					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-				}
+				IndexIsValid(index);
+				
+				return Items[index];
 			}
 			set
 			{
@@ -115,15 +110,11 @@ namespace NAynur19.LinearAlgebra
 				{
 					Items[index] = value;
 				}
-				else
-				{
-					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-				}
 			}
 		}
 		#endregion
 
-		#region Get Middle Item
+		#region Vector Get Middle Item
 		/// <summary>
 		/// Получение элемента вектора, находящегося в середине.
 		/// </summary>
