@@ -705,11 +705,11 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Shift Items To Left
+		#region Vector Items Shift To Left
 		/// <summary>
 		/// Сдвиг элементов вектора влево.
 		/// </summary>
-		/// <param name="item">Элемент, заполняемый на место свинутого элемента.</param>
+		/// <param name="item">Элемент, заполняемый на место сдвинутого элемента.</param>
 		/// <param name="start">Начальный индекс сдвигаемого элемента.</param>
 		public void ShiftItemsToLeft(double item, int start)
 		{
@@ -720,7 +720,7 @@ namespace NAynur19.LinearAlgebra
 		/// Сдвиг элементов вектора влево.
 		/// </summary>
 		/// <param name="vector">Вектора данных.</param>
-		/// <param name="item">Элемент, заполняемый на место свинутого элемента.</param>
+		/// <param name="item">Элемент, заполняемый на место сдвинутого элемента.</param>
 		/// <param name="start">Начальный индекс сдвигаемого элемента.</param>
 		public static void ShiftItemsToLeft(Vector vector, double item, int start)
 		{
@@ -730,15 +730,13 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Сдвиг элементов вектора влево.
 		/// </summary>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
 		/// <param name="vector">Вектора данных.</param>
-		/// <param name="item">Элемент, заполняемый на место свинутого элемента.</param>
+		/// <param name="item">Элемент, заполняемый на место сдвинутого элемента.</param>
 		/// <param name="start">Начальный индекс сдвигаемого элемента.</param>
 		public static void ShiftItemsToLeft<T>(T[] vector, T item, int start)
 		{
-			if(!IndexIsValid(vector, start))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-			}
+			IndexIsValid(vector, start);
 
 			if(start == 0)
 			{
@@ -750,7 +748,7 @@ namespace NAynur19.LinearAlgebra
 				vector[i - 1] = vector[i];
 			}
 
-			vector[vector.Length - 1] = item;
+			vector[^1] = item;
 		}
 		#endregion
 
