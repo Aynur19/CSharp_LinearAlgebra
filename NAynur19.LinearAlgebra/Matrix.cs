@@ -478,27 +478,23 @@ namespace NAynur19.LinearAlgebra
 
 		#region Matrix Subtraction
 		/// <summary>
-		/// Вычитание матрицы из текущей.
+		/// Разность матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица, которую вычитают из текущей матрицы.</param>
-		/// <returns>Возвращает текущую матрицу - результат разности матриц.</returns>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <returns>Возвращает новую матрицу - результат разности матриц.</returns>
 		public Matrix Subtraction(Matrix matrix)
 		{
 			return Subtraction(matrix.Items);
 		}
 
 		/// <summary>
-		/// Вычитание матрицы из текущей.
+		/// Разность матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица, которую вычитают из текущей матрицы.</param>
-		/// <returns>Возвращает текущую матрицу - результат разности матриц.</returns>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <returns>Возвращает новую матрицу - результат разности матриц.</returns>
 		public Matrix Subtraction(double[,] matrix)
 		{
-			if(!SizeIsEqual(matrix))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqual);
-			}
-
+			Matrix.SizeIsEqual(this.Items, matrix, true);
 			for(int row = 0; row < Rows; row++)
 			{
 				for(int column = 0; column < Columns; column++)
@@ -513,8 +509,8 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Разность матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 2.</param>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
 		/// <returns>Возвращает новую матрицу - результат разности матриц.</returns>
 		public static Matrix Subtration(Matrix matrix1, Matrix matrix2)
 		{
@@ -524,15 +520,12 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Разность матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 2.</param>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
 		/// <returns>Возвращает новую матрицу - результат разности матриц.</returns>
 		public static Matrix Subtraction(double[,] matrix1, double[,] matrix2)
 		{
-			if(!SizeIsEqual(matrix1, matrix2))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqual);
-			}
+			Matrix.SizeIsEqual(matrix1, matrix2, true);
 
 			var result = new Matrix(matrix1.GetLength(0), matrix1.GetLength(1));
 			for(int row = 0; row < result.Rows; row++)
