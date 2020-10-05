@@ -643,17 +643,14 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Заполнение вектора одним значением для указанного диапазона.
 		/// </summary>
-		/// <typeparam name="T">Тип данных, реализующий интерфейс IComporable.</typeparam>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
 		/// <param name="vector">Вектор данных.</param>
 		/// <param name="item">Заполняемое значение.</param>
 		/// <param name="start">Начальный индекс заполнения.</param>
 		/// <param name="end">Конечный индекс заполнения.</param>
 		public static void SetItem<T>(T[] vector, T item, int start, int end)
 		{
-			if(!IndexIsValid(vector, start, end))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-			}
+			StartEndIsValid(vector, start, end);
 
 			for(int i = start; i <= end; i++)
 			{
