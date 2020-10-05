@@ -1016,7 +1016,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Скалярное произведение векторов.
 		/// </summary>
-		/// <param name="vector">Вектор.</param>
+		/// <param name="vector">Вектор данных.</param>
 		/// <returns>Возвращает результат скалярного произведения векторов.</returns>
 		public double ScalarMultiplication(Vector vector)
 		{
@@ -1026,7 +1026,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Скалярное произведение векторов.
 		/// </summary>
-		/// <param name="vector">Вектор.</param>
+		/// <param name="vector">Вектор данных.</param>
 		/// <returns>Возвращает результат скалярного произведения векторов.</returns>
 		public double ScalarMultiplication(double[] vector)
 		{
@@ -1036,8 +1036,8 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Скалярное произведение векторов.
 		/// </summary>
-		/// <param name="vector1">Вектор 1.</param>
-		/// <param name="vector2">Вектор 2.</param>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
 		/// <returns>Возвращает результат скалярного произведения векторов.</returns>
 		public static double ScalarMultiplication(Vector vector1, Vector vector2)
 		{
@@ -1047,15 +1047,12 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Скалярное произведение векторов.
 		/// </summary>
-		/// <param name="vector1">Вектор 1.</param>
-		/// <param name="vector2">Вектор 2.</param>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
 		/// <returns>Возвращает результат скалярного произведения векторов.</returns>
 		public static double ScalarMultiplication(double[] vector1, double[] vector2)
 		{
-			if(!SizeIsEqual(vector1, vector2))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeNonEqual);
-			}
+			SizeIsEqual(vector1, vector2);
 
 			var result = 0.0;
 			for(int i = 0; i < vector1.Length; i++)
@@ -1068,6 +1065,11 @@ namespace NAynur19.LinearAlgebra
 		#endregion
 
 		#region Vector Subtracting
+		/// <summary>
+		/// Разность векторов. Изменяется текущий вектор.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает текущий вектор - результат разности векторов.</returns>
 		public Vector Subtracting(Vector vector)
 		{
 			return Subtracting(vector.Items);
@@ -1076,7 +1078,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Разность векторов. Изменяется текущий вектор.
 		/// </summary>
-		/// <param name="vector">Вектор.</param>
+		/// <param name="vector">Вектор данных.</param>
 		/// <returns>Возвращает текущий вектор - результат разности векторов.</returns>
 		public Vector Subtracting(double[] vector)
 		{
@@ -1093,8 +1095,8 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Разность 2-х векторов.
 		/// </summary>
-		/// <param name="vector1">Вектор 1.</param>
-		/// <param name="vector2">Вектор 2.</param>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
 		/// <returns>Возвращает новый вектор - результат разности 2-х векторов.</returns>
 		public static Vector Subtracting(Vector vector1, Vector vector2)
 		{
@@ -1104,8 +1106,8 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Разность 2-х векторов.
 		/// </summary>
-		/// <param name="vector1">Вектор 1.</param>
-		/// <param name="vector2">Вектор 2.</param>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
 		/// <returns>Возвращает новый вектор - результат разности 2-х векторов.</returns>
 		public static Vector Subtracting(double[] vector1, double[] vector2)
 		{
