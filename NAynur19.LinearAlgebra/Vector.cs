@@ -338,7 +338,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Get Subvector Less Items
+		#region Vector Get Subvector Less Items
 		/// <summary>
 		/// Получение подвектора данных из текущего вектора.
 		/// Подвектор данных должен содержать элементы, значения которых меньше (или равно) указанного элемента.
@@ -439,10 +439,8 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
 		public static T[] GetSubvectorLessItems<T>(T[] vector, (int, T) item, bool itemIsInclude = true) where T : IComparable
 		{
-			if(!IndexIsValid(vector, item.Item1))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-			}
+			IndexIsValid(vector, item.Item1);
+			
 			var lessItems = new List<T>();
 
 			if(itemIsInclude)
