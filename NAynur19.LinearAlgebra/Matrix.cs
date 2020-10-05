@@ -815,11 +815,12 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
+		#region Matrix Column Index Validation
 		/// <summary>
 		/// Проверка индекса столбца на валидность.
 		/// </summary>
-		/// <param name="column">Индекс столбца.</param>
-		/// <returns>Возвращает истину если индекс валидный, иначе возварщает ложь.</returns>
+		/// <param name="matrix">Матрица.</param>
+		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
 		public bool ColumnIndexIsValid(int column)
 		{
 			return ColumnIndexIsValid(this, column);
@@ -828,9 +829,9 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка индекса столбца на валидность.
 		/// </summary>
-		/// <param name="column">Индекс столбца.</param>
 		/// <param name="matrix">Матрица.</param>
-		/// <returns>Возвращает истину если индекс валидный, иначе возварщает ложь.</returns>
+		/// <param name="column">Индекс столбца.</param>
+		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
 		public static bool ColumnIndexIsValid(Matrix matrix, int column)
 		{
 			return ColumnIndexIsValid(matrix.Items, column);
@@ -839,13 +840,20 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка индекса столбца на валидность.
 		/// </summary>
-		/// <param name="column">Индекс столбца.</param>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
 		/// <param name="matrix">Матрица.</param>
-		/// <returns>Возвращает истину если индекс валидный, иначе возварщает ложь.</returns>
-		public static bool ColumnIndexIsValid(double[,] matrix, int column)
+		/// <param name="column">Индекс столбца.</param>
+		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
+		public static bool ColumnIndexIsValid<T>(T[,] matrix, int column)
 		{
-			return (column >= 0 && column < matrix.GetLength(1));
+			if(column < 0 && column >= matrix.GetLength(1))
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixColumnIndexOutSizeException);
+			}
+
+			return true;
 		}
+		#endregion
 
 		/// <summary>
 		/// Проверка индексов на валидность.
