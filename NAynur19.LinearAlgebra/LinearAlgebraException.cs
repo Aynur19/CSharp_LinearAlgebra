@@ -42,9 +42,10 @@ namespace NAynur19.LinearAlgebra
 
 		#region Matrix Exceptions
 		public static string MatrixSizeLessOneException => "Размер матрицы не может быть меньше 1";
-		public static string IndexOutOfMatrixSizeException => "Индексы находится за пределами массива.";
-		public static string MatrixSizeNonEqualException => "Размеры матриц не одинаковы";
-		public static string MatrixSizeNonValidForMultiplication => "Размеры матриц не подходят для произведения";
+		public static string MatrixRowIndexOutSizeException => "Индекс строки находится за пределами матрицы.";
+		public static string MatrixColumnIndexOutSizeException => "Индекс столбца находится за пределами матрицы.";
+		public static string MatrixSizeNonEqualException => "Размеры матриц не одинаковы.";
+		public static string MatrixSizeNonValidForMultiplication => "Размеры матриц не подходят для произведения.";
 		#endregion
 	}
 }
