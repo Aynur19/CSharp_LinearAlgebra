@@ -615,7 +615,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>возвращает новую матрицу - результат произведения 2-х матриц.</returns>
 		public Matrix Multiplication(double[,] matrix)
 		{
-			return Multiplication(this.Items, matrix);
+			return new Matrix(Multiplication(this.Items, matrix));
 		}
 
 		/// <summary>
