@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 
 namespace NAynur19.LinearAlgebra
 {
@@ -693,7 +694,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка равенства матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица.</param>
+		/// <param name="matrix">Матрица данных.</param>
 		/// <returns>Возвращает истину если матрицы равны, иначе возвращает ложь.</returns>
 		public bool IsEqual(Matrix matrix)
 		{
@@ -703,39 +704,19 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка равенства матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица в виде двумерного массива.</param>
+		/// <param name="matrix">Матрица данных.</param>
 		/// <returns>Возвращает истину если матрицы равны, иначе возвращает ложь.</returns>
 		public bool IsEqual(double[,] matrix)
 		{
-			var result = true;
-			if(!SizeIsEqual(matrix))
-			{
-				return false;
-			}
-
-			for(int row = 0; row < Rows; row++)
-			{
-				for(int column = 0; column < Columns; column++)
-				{
-					if(matrix[row, column] != this[row, column])
-					{
-						if(double.IsNaN(matrix[row, column]) && double.IsNaN(this[row, column]))
-						{
-							continue;
-						}
-						return false;
-					}
-				}
-			}
-
-			return result;
+			return IsEqual(this.Items,matrix);
 		}
 
 		/// <summary>
 		/// Проверка равенства матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 2.</param>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
 		/// <returns>Возвращает истину если матрицы равны, иначе возвращает ложь.</returns>
 		public static bool IsEqual(Matrix matrix1, Matrix matrix2)
 		{
@@ -745,10 +726,11 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка равенства матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 2.</param>
+		/// <typeparam name="T">Тип данных, реализующий интерфейс IComparable.</typeparam>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
 		/// <returns>Возвращает истину если матрицы равны, иначе возвращает ложь.</returns>
-		public static bool IsEqual(double[,] matrix1, double[,] matrix2)
+		public static bool IsEqual<T>(T[,] matrix1, T[,] matrix2) where T : IComparable
 		{
 			var result = true;
 			if(!SizeIsEqual(matrix1, matrix2))
@@ -760,12 +742,8 @@ namespace NAynur19.LinearAlgebra
 			{
 				for(int column = 0; column < matrix1.GetLength(1); column++)
 				{
-					if(matrix1[row, column] != matrix2[row, column])
+					if(matrix1[row, column].CompareTo(matrix2[row, column]) != 0)
 					{
-						if(double.IsNaN(matrix1[row, column]) && double.IsNaN(matrix2[row, column]))
-						{
-							continue;
-						}
 						return false;
 					}
 				}
