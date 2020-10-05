@@ -496,7 +496,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает новую матрицу - результат разности матриц.</returns>
 		public static Matrix Subtration(Matrix matrix1, Matrix matrix2)
 		{
-			return Subtraction(matrix1.Items, matrix2.Items);
+			return new Matrix(Subtraction(matrix1.Items, matrix2.Items));
 		}
 
 		/// <summary>
@@ -505,14 +505,14 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix1">Матрица данных 1.</param>
 		/// <param name="matrix2">Матрица данных 2.</param>
 		/// <returns>Возвращает новую матрицу - результат разности матриц.</returns>
-		public static Matrix Subtraction(double[,] matrix1, double[,] matrix2)
+		public static double[,] Subtraction(double[,] matrix1, double[,] matrix2)
 		{
 			Matrix.SizeIsEqual(matrix1, matrix2, true);
 
-			var result = new Matrix(matrix1.GetLength(0), matrix1.GetLength(1));
-			for(int row = 0; row < result.Rows; row++)
+			var result = new double[matrix1.GetLength(0), matrix1.GetLength(1)];
+			for(int row = 0; row < result.GetLength(0); row++)
 			{
-				for(int column = 0; column < result.Columns; column++)
+				for(int column = 0; column < result.GetLength(1); column++)
 				{
 					result[row, column] = matrix1[row, column] - matrix2[row, column];
 				}
