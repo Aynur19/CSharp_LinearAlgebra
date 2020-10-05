@@ -972,31 +972,18 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Умножения вектора на скаляр.
 		/// </summary>
-		/// <param name="vector">Вектор.</param>
+		/// <param name="vector">Вектор данных.</param>
 		/// <param name="scalar">Скаляр.</param>
-		/// <param name="isNew">Указатель создания нового вектора.</param>
 		/// <returns>Возвращает вектор - результат умножения на скаляр.</returns>
-		public static Vector MultiplicationByNumber(Vector vector, double scalar, bool isNew = false)
+		public static Vector MultiplicationByNumber(Vector vector, double scalar)
 		{
-			if(isNew)
-			{
-				return MultiplicationByNumber(vector.Items, scalar);
-			}
-			else
-			{
-				for(int i = 0; i < vector.Dimension; i++)
-				{
-					vector[i] *= scalar;
-				}
-
-				return vector;
-			}
+			return MultiplicationByNumber(vector.Items, scalar);
 		}
 
 		/// <summary>
 		/// Умножения вектора на скаляр.
 		/// </summary>
-		/// <param name="vector">Вектор.</param>
+		/// <param name="vector">Вектор данных.</param>
 		/// <param name="scalar">Скаляр.</param>
 		/// <returns>Возвращает новый вектор - результат умножения на скаляр.</returns>
 		public static Vector MultiplicationByNumber(double[] vector, double scalar)
