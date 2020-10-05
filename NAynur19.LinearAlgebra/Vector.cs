@@ -1080,10 +1080,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает текущий вектор - результат разности векторов.</returns>
 		public Vector Subtracting(double[] vector)
 		{
-			if(vector.Length != Dimension)
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeNonEqual);
-			}
+			SizeIsEqual(this.Items, vector);
 
 			for(int i = 0; i < Dimension; i++)
 			{
@@ -1112,11 +1109,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает новый вектор - результат разности 2-х векторов.</returns>
 		public static Vector Subtracting(double[] vector1, double[] vector2)
 		{
-			In
-			if(vector1.Length != vector2.Length)
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeNonEqual);
-			}
+			SizeIsEqual(vector1, vector2);
 
 			var result = new Vector(vector1.Length);
 			for(int i = 0; i < result.Dimension; i++)
