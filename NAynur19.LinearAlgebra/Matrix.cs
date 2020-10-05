@@ -876,33 +876,23 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Size Is Equal
+		#region Matrix Size Is Equal
 		/// <summary>
 		/// Проверка равенства размерностей матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица, у которой проверяется размерность.</param>
-		/// <returns>Возвращает истину если размерности совпадают, иначе - ложь.</returns>
+		/// <param name="matrix2">Матрица данных.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе - выбрасывает соответствующее исключение.</returns>
 		public bool SizeIsEqual(Matrix matrix)
 		{
-			return SizeIsEqual(matrix.Items);
+			return SizeIsEqual(this, matrix);
 		}
 
 		/// <summary>
 		/// Проверка равенства размерностей матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица, у которой проверяется размерность.</param>
-		/// <returns>Возвращает истину если размерности совпадают, иначе - ложь.</returns>
-		public bool SizeIsEqual(double[,] matrix)
-		{
-			return (matrix.GetLength(0) == this.Rows && matrix.GetLength(1) == this.Columns);
-		}
-
-		/// <summary>
-		/// Проверка равенства размерностей матриц.
-		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 2.</param>
-		/// <returns>Возвращает истину если размерности совпадают, иначе - ложь.</returns>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе - выбрасывает соответствующее исключение.</returns>
 		public static bool SizeIsEqual(Matrix matrix1, Matrix matrix2)
 		{
 			return SizeIsEqual(matrix1.Items, matrix2.Items);
@@ -911,12 +901,18 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка равенства размерностей матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 2.</param>
-		/// <returns>Возвращает истину если размерности совпадают, иначе - ложь.</returns>
-		public static bool SizeIsEqual(double[,] matrix1, double[,] matrix2)
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе - выбрасывает соответствующее исключение.</returns>
+		public static bool SizeIsEqual<T>(T[,] matrix1, T[,] matrix2)
 		{
-			return (matrix1.GetLength(0) == matrix2.GetLength(0) && matrix1.GetLength(1) == matrix2.GetLength(1));
+			if(matrix1.GetLength(0) != matrix2.GetLength(0) || matrix1.GetLength(1) != matrix2.GetLength(1))
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqualException);
+			}
+
+			return true;
 		}
 		#endregion
 
