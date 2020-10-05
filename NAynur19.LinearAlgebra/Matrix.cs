@@ -549,7 +549,7 @@ namespace NAynur19.LinearAlgebra
 
 		#region Matrix Copy From
 		/// <summary>
-		/// Копирование матрицы из тругой матрицы.
+		/// Копирование матрицы из другой матрицы.
 		/// </summary>
 		/// <param name="matrix">Матрица, значения которого копируются в текущую матрицу.</param>
 		public void CopyFrom(Matrix matrix)
@@ -563,19 +563,13 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix">Двумерный массив, значения которого копируются в текущую матрицу.</param>
 		public void CopyFrom(double[,] matrix)
 		{
-			if(matrix.GetLength(0) == this.Rows && matrix.GetLength(1) == this.Columns)
+			Matrix.SizeIsEqual(this.Items, matrix, true);
+			for(int row = 0; row < this.Rows; row++)
 			{
-				for(int row = 0; row < this.Rows; row++)
+				for(int column = 0; column < this.Columns; column++)
 				{
-					for(int column = 0; column < this.Columns; column++)
-					{
-						this[row, column] = matrix[row, column];
-					}
+					this[row, column] = matrix[row, column];
 				}
-			}
-			else
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqual);
 			}
 		}
 		#endregion
@@ -631,7 +625,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region matrix Multiplication on Matrix
+		#region Matrix Multiplication By Matrix
 		/// <summary>
 		/// Произведение матриц.
 		/// </summary>
