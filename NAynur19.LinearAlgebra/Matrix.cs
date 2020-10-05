@@ -921,28 +921,54 @@ namespace NAynur19.LinearAlgebra
 		#endregion
 
 		#region Matrix To String
+		/// <summary>
+		/// Вывод строкового представления матрицы.
+		/// </summary>
+		/// <returns>Возвращает строковое представление текущей матрицы.</returns>
 		public override string ToString()
 		{
+			return ToString(this);
+		}
+
+		/// <summary>
+		/// Вывод строкового представления матрицы.
+		/// </summary>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <returns>Возвращает строковое представление матрицы.</returns>
+		public static string ToString(Matrix matrix)
+		{
+			return ToString(matrix.Items);
+		}
+
+		/// <summary>
+		/// Вывод строкового представления матрицы.
+		/// </summary>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <returns>Возвращает строковое представление матрицы.</returns>
+		public static string ToString<T>(T[,] matrix)
+		{
 			var splitter = "|\r\n|";
-			StringBuilder matrix = new StringBuilder($"|");
-			if(Rows > 0 && Columns > 0)
+			StringBuilder stringMatrix = new StringBuilder($"|");
+			
+			if(matrix.GetLength(0) > 0 && matrix.GetLength(1) > 0)
 			{
-				for(int row = 0; row < Rows; row++)
+				for(int row = 0; row < matrix.GetLength(0); row++)
 				{
-					matrix.Append($"{this[row, 0]}");
-					for(int column = 1; column < Columns; column++)
+					stringMatrix.Append($"{matrix[row, 0]}");
+					for(int column = 1; column < matrix.GetLength(1); column++)
 					{
-						matrix.Append($", {this[row, column]}");
+						stringMatrix.Append($", {matrix[row, column]}");
 					}
 
-					matrix.Append(splitter);
+					stringMatrix.Append(splitter);
 				}
-				matrix.Remove(matrix.Length - splitter.Length, splitter.Length);
+				stringMatrix.Remove(stringMatrix.Length - splitter.Length, splitter.Length);
 			}
 
-			matrix.Append($"|");
+			stringMatrix.Append($"|");
 
-			return matrix.ToString();
+			return stringMatrix.ToString();
 		}
 		#endregion
 	}
