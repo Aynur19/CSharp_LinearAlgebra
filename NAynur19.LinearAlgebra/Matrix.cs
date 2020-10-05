@@ -100,7 +100,6 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Setters
 		/// <summary>
 		/// Установка значений из другой матрицы.
 		/// </summary>
@@ -179,6 +178,7 @@ namespace NAynur19.LinearAlgebra
 			}
 		}
 
+		#region Matrix Set Row
 		/// <summary>
 		/// Установка вектора в строку матрицы по указанному индексу.
 		/// </summary>
@@ -196,16 +196,15 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="row">Индекс строки.</param>
 		public void SetRow(double[] vector, int row)
 		{
-			if(!RowIndexIsValid(this, row) || vector.Length != Columns)
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfMatrixSizeException);
-			}
+			Matrix.RowIndexIsValid(this, row, true);
+			Matrix.ColumnIndexIsValid(this, vector.Length - 1, true);
 
 			for(int column = 0; column < vector.Length; column++)
 			{
 				this[row, column] = vector[column];
 			}
 		}
+		#endregion
 
 		#region Matrix Set Column
 		/// <summary>
@@ -233,7 +232,6 @@ namespace NAynur19.LinearAlgebra
 				this[row, column] = vector[row];
 			}
 		}
-		#endregion
 		#endregion
 
 		#region Matrix Get Row
