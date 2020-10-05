@@ -9,14 +9,14 @@ namespace NAynur19.LinearAlgebra
 	/// </summary>
 	public class Vector
 	{
-		#region Properties
+		#region Vector Properties
 		/// <summary>
 		/// Количество измерений вектора.
 		/// </summary>
 		public int Dimension { get; private set; }
 
 		/// <summary>
-		/// Координаты вектора.
+		/// Элементы вектора.
 		/// </summary>
 		public double[] Items { get; private set; }
 		#endregion
