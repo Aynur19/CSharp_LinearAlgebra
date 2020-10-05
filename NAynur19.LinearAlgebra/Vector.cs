@@ -21,7 +21,7 @@ namespace NAynur19.LinearAlgebra
 		public double[] Items { get; private set; }
 		#endregion
 
-		#region Constructor
+		#region Vector Constructor
 		/// <summary>
 		/// Конструктор.
 		/// </summary>
@@ -51,7 +51,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Конструктор.
 		/// </summary>
-		/// <param name="vector">Одномерный массив.</param>
+		/// <param name="vector">Исходный массив данных.</param>
 		public Vector(double[] vector)
 		{
 			SetDimension(vector.Length);
