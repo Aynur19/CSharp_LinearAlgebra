@@ -855,12 +855,13 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
+		#region Matrix Index Validation
 		/// <summary>
 		/// Проверка индексов на валидность.
 		/// </summary>
 		/// <param name="row">Индекс строки.</param>
 		/// <param name="column">Индекс столбца.</param>
-		/// <returns>Возвращает истину если индекс валидный, иначе возварщает ложь.</returns>
+		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
 		public bool IndexIsValid(int row, int column)
 		{
 			return (RowIndexIsValid(row) && ColumnIndexIsValid(column));
@@ -872,7 +873,7 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="row">Индекс строки.</param>
 		/// <param name="column">Индекс столбца.</param>
-		/// <returns>Возвращает истину если индекс валидный, иначе возварщает ложь.</returns>
+		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
 		public bool IndexIsValid(Matrix matrix, int row, int column)
 		{
 			return (RowIndexIsValid(matrix, row) && ColumnIndexIsValid(matrix, column));
@@ -881,14 +882,16 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка индексов на валидность.
 		/// </summary>
+		/// <typeparam name="T">Униерсальный тип данных.</typeparam>
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="row">Индекс строки.</param>
 		/// <param name="column">Индекс столбца.</param>
-		/// <returns>Возвращает истину если индекс валидный, иначе возварщает ложь.</returns>
-		public static bool IndexIsValid(double[,] matrix, int row, int column)
+		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
+		public static bool IndexIsValid<T>(T[,] matrix, int row, int column)
 		{
 			return (RowIndexIsValid(matrix, row) && ColumnIndexIsValid(matrix, column));
 		}
+		#endregion
 
 		#region Matrix Size Is Equal
 		/// <summary>
