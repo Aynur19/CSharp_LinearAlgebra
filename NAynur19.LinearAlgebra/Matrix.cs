@@ -207,6 +207,7 @@ namespace NAynur19.LinearAlgebra
 			}
 		}
 
+		#region Matrix Set Column
 		/// <summary>
 		/// Установка вектора в столбец матрицы по указанному индексу.
 		/// </summary>
@@ -224,16 +225,15 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="column">Индекс столбца.</param>
 		public void SetColumn(double[] vector, int column)
 		{
-			if(!ColumnIndexIsValid(this, column) || vector.Length != this.Rows)
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfMatrixSizeException);
-			}
-
+			Matrix.ColumnIndexIsValid(this, column, true);
+			Matrix.RowIndexIsValid(this, vector.Length - 1, true);
+			
 			for(int row = 0; row < vector.Length; row++)
 			{
 				this[row, column] = vector[row];
 			}
 		}
+		#endregion
 		#endregion
 
 		#region Matrix Get Row
