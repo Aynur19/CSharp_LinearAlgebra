@@ -100,6 +100,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
+		#region Matrix Set Items 
 		/// <summary>
 		/// Установка значений из другой матрицы.
 		/// </summary>
@@ -115,19 +116,13 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix">Матрица, значения которой устанавливаются в текущую матрицу.</param>
 		public void SetItems(double[,] matrix)
 		{
-			if(SizeIsEqual(matrix))
+			Matrix.SizeIsEqual(this.Items, matrix, true);
+			for(int row = 0; row < Rows; row++)
 			{
-				for(int row = 0; row < Rows; row++)
+				for(int column = 0; column < Columns; column++)
 				{
-					for(int column = 0; column < Columns; column++)
-					{
-						this[row, column] = matrix[row, column];
-					}
+					this[row, column] = matrix[row, column];
 				}
-			}
-			else
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqual);
 			}
 		}
 
@@ -177,6 +172,7 @@ namespace NAynur19.LinearAlgebra
 				}
 			}
 		}
+		#endregion
 
 		#region Matrix Set Row
 		/// <summary>
