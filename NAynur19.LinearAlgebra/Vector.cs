@@ -754,7 +754,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Vector Index Is Validation
+		#region Vector Index Validation
 		/// <summary>
 		/// Проверка индекса вектора.
 		/// </summary>
@@ -848,33 +848,23 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Size Is Equal
+		#region Vectors Size Is Equal
 		/// <summary>
 		/// Проверка равенства размерностей векторов.
 		/// </summary>
-		/// <param name="vector">Вектор, у которого проверяется размерность.</param>
-		/// <returns>Возвращает истину если размерности совпадают, иначе - ложь.</returns>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе выбрасывает исключение.</returns>
 		public bool SizeIsEqual(Vector vector)
 		{
-			return SizeIsEqual(vector.Items);
+			return SizeIsEqual(this, vector);
 		}
 
 		/// <summary>
 		/// Проверка равенства размерностей векторов.
 		/// </summary>
-		/// <param name="vector">Вектор, у которого проверяется размерность.</param>
-		/// <returns>Возвращает истину если размерности совпадают, иначе - ложь.</returns>
-		public bool SizeIsEqual(double[] vector)
-		{
-			return (vector.Length == Dimension);
-		}
-
-		/// <summary>
-		/// Проверка равенства размерностей векторов.
-		/// </summary>
-		/// <param name="vector1">Вектор 1.</param>
-		/// <param name="vector2">Вектор 2.</param>
-		/// <returns>Возвращает истину если размерности совпадают, иначе - ложь.</returns>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе выбрасывает исключение.</returns>
 		public static bool SizeIsEqual(Vector vector1, Vector vector2)
 		{
 			return SizeIsEqual(vector1.Items, vector1.Items);
@@ -883,12 +873,18 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Проверка равенства размерностей векторов.
 		/// </summary>
-		/// <param name="vector1">Вектор 1.</param>
-		/// <param name="vector2">Вектор 2.</param>
-		/// <returns>Возвращает истину если размерности совпадают, иначе - ложь.</returns>
-		public static bool SizeIsEqual(double[] vector1, double[] vector2)
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе выбрасывает исключение.</returns>
+		public static bool SizeIsEqual<T>(T[] vector1, T[] vector2)
 		{
-			return (vector1.Length == vector2.Length);
+			if(vector1.Length != vector2.Length)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeNonEqualException);
+			}
+
+			return true;
 		}
 		#endregion
 
@@ -1116,6 +1112,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает новый вектор - результат разности 2-х векторов.</returns>
 		public static Vector Subtracting(double[] vector1, double[] vector2)
 		{
+			In
 			if(vector1.Length != vector2.Length)
 			{
 				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeNonEqual);
