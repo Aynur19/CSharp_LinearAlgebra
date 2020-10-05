@@ -759,10 +759,11 @@ namespace NAynur19.LinearAlgebra
 		/// Проверка индекса строки на валидность.
 		/// </summary>
 		/// <param name="row">Индекс строки.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public bool RowIndexIsValid(int row)
+		public bool RowIndexIsValid(int row, bool isThrowException = false)
 		{
-			return RowIndexIsValid(this, row);
+			return RowIndexIsValid(this, row, isThrowException);
 		}
 
 		/// <summary>
@@ -770,10 +771,11 @@ namespace NAynur19.LinearAlgebra
 		/// </summary>
 		/// <param name="matrix">Матрица данных.</param>
 		/// <param name="row">Индекс строки.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public static bool RowIndexIsValid(Matrix matrix, int row)
+		public static bool RowIndexIsValid(Matrix matrix, int row, bool isThrowException = false)
 		{
-			return RowIndexIsValid(matrix.Items, row);
+			return RowIndexIsValid(matrix.Items, row, isThrowException);
 		}
 
 		/// <summary>
@@ -782,12 +784,21 @@ namespace NAynur19.LinearAlgebra
 		/// <typeparam name="T">Универсальный тип данных.</typeparam>
 		/// <param name="row">Индекс строки.</param>
 		/// <param name="matrix">Матрица данных.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public static bool RowIndexIsValid<T>(T[,] matrix, int row)
+		public static bool RowIndexIsValid<T>(T[,] matrix, int row, bool isThrowException = false)
 		{
 			if(row < 0 && row >= matrix.GetLength(0))
 			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixRowIndexOutSizeException);
+				if(isThrowException)
+				{
+					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixRowIndexOutSizeException);
+				}
+				else
+				{
+					return false;
+				}
+				
 			}
 
 			return true;
@@ -799,10 +810,11 @@ namespace NAynur19.LinearAlgebra
 		/// Проверка индекса столбца на валидность.
 		/// </summary>
 		/// <param name="matrix">Матрица.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public bool ColumnIndexIsValid(int column)
+		public bool ColumnIndexIsValid(int column, bool isThrowException = false)
 		{
-			return ColumnIndexIsValid(this, column);
+			return ColumnIndexIsValid(this, column, isThrowException);
 		}
 
 		/// <summary>
@@ -810,10 +822,11 @@ namespace NAynur19.LinearAlgebra
 		/// </summary>
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="column">Индекс столбца.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public static bool ColumnIndexIsValid(Matrix matrix, int column)
+		public static bool ColumnIndexIsValid(Matrix matrix, int column, bool isThrowException = false)
 		{
-			return ColumnIndexIsValid(matrix.Items, column);
+			return ColumnIndexIsValid(matrix.Items, column, isThrowException);
 		}
 
 		/// <summary>
@@ -822,12 +835,21 @@ namespace NAynur19.LinearAlgebra
 		/// <typeparam name="T">Универсальный тип данных.</typeparam>
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="column">Индекс столбца.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public static bool ColumnIndexIsValid<T>(T[,] matrix, int column)
+		public static bool ColumnIndexIsValid<T>(T[,] matrix, int column, bool isThrowException = false)
 		{
 			if(column < 0 && column >= matrix.GetLength(1))
 			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixColumnIndexOutSizeException);
+				if(isThrowException)
+				{
+					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixColumnIndexOutSizeException);
+				}
+				else
+				{
+					return false;
+				}
+				
 			}
 
 			return true;
@@ -840,10 +862,11 @@ namespace NAynur19.LinearAlgebra
 		/// </summary>
 		/// <param name="row">Индекс строки.</param>
 		/// <param name="column">Индекс столбца.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public bool IndexIsValid(int row, int column)
+		public bool IndexIsValid(int row, int column, bool isThrowException = false)
 		{
-			return (RowIndexIsValid(row) && ColumnIndexIsValid(column));
+			return (RowIndexIsValid(row, isThrowException) && ColumnIndexIsValid(column, isThrowException));
 		}
 
 		/// <summary>
@@ -852,10 +875,11 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="row">Индекс строки.</param>
 		/// <param name="column">Индекс столбца.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public bool IndexIsValid(Matrix matrix, int row, int column)
+		public bool IndexIsValid(Matrix matrix, int row, int column, bool isThrowException = false)
 		{
-			return (RowIndexIsValid(matrix, row) && ColumnIndexIsValid(matrix, column));
+			return (RowIndexIsValid(matrix, row, isThrowException) && ColumnIndexIsValid(matrix, column, isThrowException));
 		}
 
 		/// <summary>
@@ -865,10 +889,11 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="row">Индекс строки.</param>
 		/// <param name="column">Индекс столбца.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
-		public static bool IndexIsValid<T>(T[,] matrix, int row, int column)
+		public static bool IndexIsValid<T>(T[,] matrix, int row, int column, bool isThrowException = false)
 		{
-			return (RowIndexIsValid(matrix, row) && ColumnIndexIsValid(matrix, column));
+			return (RowIndexIsValid(matrix, row, isThrowException) && ColumnIndexIsValid(matrix, column, isThrowException));
 		}
 		#endregion
 
@@ -877,10 +902,11 @@ namespace NAynur19.LinearAlgebra
 		/// Проверка равенства размерностей матриц.
 		/// </summary>
 		/// <param name="matrix2">Матрица данных.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если размерности совпадают, иначе - выбрасывает соответствующее исключение.</returns>
-		public bool SizeIsEqual(Matrix matrix)
+		public bool SizeIsEqual(Matrix matrix, bool isThrowException = false)
 		{
-			return SizeIsEqual(this, matrix);
+			return SizeIsEqual(this, matrix, isThrowException);
 		}
 
 		/// <summary>
@@ -888,10 +914,11 @@ namespace NAynur19.LinearAlgebra
 		/// </summary>
 		/// <param name="matrix1">Матрица данных 1.</param>
 		/// <param name="matrix2">Матрица данных 2.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если размерности совпадают, иначе - выбрасывает соответствующее исключение.</returns>
-		public static bool SizeIsEqual(Matrix matrix1, Matrix matrix2)
+		public static bool SizeIsEqual(Matrix matrix1, Matrix matrix2, bool isThrowException = false)
 		{
-			return SizeIsEqual(matrix1.Items, matrix2.Items);
+			return SizeIsEqual(matrix1.Items, matrix2.Items, isThrowException);
 		}
 
 		/// <summary>
@@ -900,12 +927,20 @@ namespace NAynur19.LinearAlgebra
 		/// <typeparam name="T">Универсальный тип данных.</typeparam>
 		/// <param name="matrix1">Матрица данных 1.</param>
 		/// <param name="matrix2">Матрица данных 2.</param>
+		/// <param name="isThrowException">Указатель на выброс исключения в случае False. По умолчанию отключен.</param>
 		/// <returns>Возвращает истину если размерности совпадают, иначе - выбрасывает соответствующее исключение.</returns>
-		public static bool SizeIsEqual<T>(T[,] matrix1, T[,] matrix2)
+		public static bool SizeIsEqual<T>(T[,] matrix1, T[,] matrix2, bool isThrowException = false)
 		{
 			if(matrix1.GetLength(0) != matrix2.GetLength(0) || matrix1.GetLength(1) != matrix2.GetLength(1))
 			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqualException);
+				if(isThrowException)
+				{
+					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqualException);
+				}
+				else
+				{
+					return false;
+				}
 			}
 
 			return true;
