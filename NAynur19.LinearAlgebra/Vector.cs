@@ -60,7 +60,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Copy Vector From
+		#region Vector Copy From
 		/// <summary>
 		/// Копирование вектора из другого вектора.
 		/// </summary>
@@ -76,16 +76,11 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="vector">Массив (вектор), с которого копируются значения.</param>
 		public void CopyFrom(double[] vector)
 		{
-			if(vector.Length == Dimension)
+			SizeIsEqual(this.Items, vector);
+
+			for(int index = 0; index < Dimension; index++)
 			{
-				for(int index = 0; index < Dimension; index++)
-				{
-					this[index] = vector[index];
-				}
-			}
-			else
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeNonEqual);
+				this[index] = vector[index];
 			}
 		}
 		#endregion
