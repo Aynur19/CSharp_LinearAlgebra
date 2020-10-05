@@ -892,7 +892,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Сложение векторов. Изменяется текущий вектор.
 		/// </summary>
-		/// <param name="vector">Вектор.</param>
+		/// <param name="vector">Вектор данных.</param>
 		/// <returns>Возвращает текущий вектор - результат сложения векторов.</returns>
 		public Vector Addation(Vector vector)
 		{
@@ -902,14 +902,11 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Сложение векторов. Изменяется текущий вектор.
 		/// </summary>
-		/// <param name="vector">Вектор.</param>
+		/// <param name="vector">Вектор данных.</param>
 		/// <returns>Возвращает текущий вектор - результат сложения векторов.</returns>
 		public Vector Addation(double[] vector)
 		{
-			if(Dimension != vector.Length)
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeNonEqual);
-			}
+			SizeIsEqual(this.Items, vector);
 
 			for(int i = 0; i < Dimension; i++)
 			{
@@ -922,8 +919,8 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Сложение 2-х векторов.
 		/// </summary>
-		/// <param name="vector1">Вектор 1.</param>
-		/// <param name="vector2">Вектор 2.</param>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
 		/// <returns>Возвращает новый вектор - результат сложения векторов.</returns>
 		public static Vector Addation(Vector vector1, Vector vector2)
 		{
@@ -933,15 +930,12 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Сложение 2-х векторов.
 		/// </summary>
-		/// <param name="vector1">Вектор 1.</param>
-		/// <param name="vector2">Вектор 2.</param>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
 		/// <returns>Возвращает новый вектор - результат сложения векторов.</returns>
 		public static Vector Addation(double[] vector1, double[] vector2)
 		{
-			if(vector1.Length != vector2.Length)
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeNonEqual);
-			}
+			SizeIsEqual(vector1, vector2);
 
 			var result = new Vector(vector1.Length);
 			for(int i = 0; i < result.Dimension; i++)
