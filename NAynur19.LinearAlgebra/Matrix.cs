@@ -399,7 +399,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Сложение матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица, которую прибавляем к текущей.</param>
+		/// <param name="matrix">Матрица данных, которую прибавляем к текущей.</param>
 		/// <returns>Возвращает текущую матрицу - результат сложения матриц.</returns>
 		public Matrix Addation(Matrix matrix)
 		{
@@ -409,23 +409,17 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Сложение матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица, которую прибавляем к текущей.</param>
+		/// <param name="matrix">Матрица данных, которую прибавляем к текущей.</param>
 		/// <returns>Возвращает текущую матрицу - результат сложения матриц.</returns>
 		public Matrix Addation(double[,] matrix)
 		{
-			if(SizeIsEqual(matrix))
+			if(Matrix.SizeIsEqual(this.Items, matrix, true)) ;
+			for(int row = 0; row < this.Rows; row++)
 			{
-				for(int row = 0; row < this.Rows; row++)
+				for(int column = 0; column < this.Columns; column++)
 				{
-					for(int column = 0; column < this.Columns; column++)
-					{
-						this[row, column] += matrix[row, column];
-					}
+					this[row, column] += matrix[row, column];
 				}
-			}
-			else
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqual);
 			}
 		
 			return this;
@@ -434,39 +428,27 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Сложение матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 1.</param>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
 		/// <returns>Возвращает новую матрицу - результат сложения 2-х матриц.</returns>
 		public static Matrix Addation(Matrix matrix1, Matrix matrix2)
 		{
-			if(!matrix1.SizeIsEqual(matrix2))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqual);
-			}
-
-			var result = new Matrix(matrix1.Rows, matrix1.Columns);
-
-
-			return result;
+			return new Matrix(Addation(matrix1.Items, matrix2.Items));
 		}
 
 		/// <summary>
 		/// Сложение матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 1.</param>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
 		/// <returns>Возвращает новую матрицу - результат сложения 2-х матриц.</returns>
-		public static Matrix Addation(double[,] matrix1, double[,] matrix2)
+		public static double[,] Addation(double[,] matrix1, double[,] matrix2)
 		{
-			if(!SizeIsEqual(matrix1, matrix2))
+			Matrix.SizeIsEqual(matrix1, matrix2, true);
+			var result = new double[matrix1.GetLength(0), matrix1.GetLength(1)];
+			for(int row = 0; row < result.GetLength(0); row++)
 			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqual);
-			}
-
-			var result = new Matrix(matrix1.GetLength(0), matrix1.GetLength(1));
-			for(int row = 0; row < result.Rows; row++)
-			{
-				for(int column = 0; column < result.Columns; column++)
+				for(int column = 0; column < result.GetLength(1); column++)
 				{
 					result[row, column] = matrix1[row, column] + matrix2[row, column];
 				}
