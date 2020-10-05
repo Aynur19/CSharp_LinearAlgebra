@@ -155,7 +155,8 @@ namespace NAynur19.LinearAlgebra
 			return (middle, vector[middle]);
 		}
 		#endregion
-		#region Get Subvector
+
+		#region Vector Get Subvector
 		/// <summary>
 		/// Получение подвектора данных из текущего вектора.
 		/// </summary>
@@ -190,10 +191,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возварщает новый вектор данных - подвектор исходного.</returns>
 		public static T[] GetSubvector<T>(T[] vector, int start, int end)
 		{
-			if(!IndexIsValid(vector, start, end))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-			}
+			StartEndIsValid(vector, start, end);
 
 			var result = new T[end - start + 1];
 			for(int i = 0; i < result.Length; i++)
