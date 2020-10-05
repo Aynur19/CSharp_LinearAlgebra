@@ -671,6 +671,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>возвращает новую матрицу - результат произведения 2-х матриц.</returns>
 		public static Matrix Multiplication(double[,] matrix1, double[,] matrix2)
 		{
+
 			if(matrix1.GetLength(1) != matrix2.GetLength(0))
 			{
 				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonValidForMultiplication);
@@ -905,6 +906,56 @@ namespace NAynur19.LinearAlgebra
 			if(matrix1.GetLength(0) != matrix2.GetLength(0) || matrix1.GetLength(1) != matrix2.GetLength(1))
 			{
 				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonEqualException);
+			}
+
+			return true;
+		}
+		#endregion
+
+		#region Matrix Size Validation For Matrix Multiplication
+		/// <summary>
+		/// Проверка размерностей матриц для операции произведения указанных матриц.
+		/// </summary>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <param name="isThrowException">Указатель выброса исключения если метод должен вернуть false. По умолчанию отключен.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе возвращает ложь.</returns>
+		public bool SizeIsValidForMultiplication(Matrix matrix, bool isThrowException = false)
+		{
+			return SizeIsValidForMultiplication(this, matrix, isThrowException);
+		}
+
+		/// <summary>
+		/// Проверка размерностей матриц для операции произведения указанных матриц.
+		/// </summary>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
+		/// <param name="isThrowException">Указатель выброса исключения если метод должен вернуть false. По умолчанию отключен.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе возвращает ложь.</returns>
+		public static bool SizeIsValidForMultiplication(Matrix matrix1, Matrix matrix2, bool isThrowException = false)
+		{
+			return SizeIsValidForMultiplication(matrix1.Items, matrix2.Items, isThrowException);
+		}
+
+		/// <summary>
+		/// Проверка размерностей матриц для операции произведения указанных матриц.
+		/// </summary>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
+		/// <param name="isThrowException">Указатель выброса исключения если метод должен вернуть false. По умолчанию отключен.</param>
+		/// <returns>Возвращает истину если размерности совпадают, иначе возвращает ложь.</returns>
+		public static bool SizeIsValidForMultiplication<T>(T[,] matrix1, T[,] matrix2, bool isThrowException = false)
+		{
+			if(matrix1.GetLength(0) != matrix2.GetLength(1))
+			{
+				if(isThrowException)
+				{
+					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonValidForMultiplication);
+				}
+				else
+				{
+					return false;
+				}
 			}
 
 			return true;
