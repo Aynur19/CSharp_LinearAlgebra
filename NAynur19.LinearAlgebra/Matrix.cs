@@ -36,15 +36,23 @@ namespace NAynur19.LinearAlgebra
 		{
 			get
 			{
+				if(Rows <= 0 || Columns <= 0)
+				{
+					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeLessOneException);
+				}
 				IndexIsValid(row, column, true);
+
 				return Items[row, column];
 			}
 			set
 			{
-				if(IndexIsValid(row, column, true))
+				if(Rows <= 0 || Columns <= 0)
 				{
-					Items[row, column] = value;
+					throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeLessOneException);
 				}
+				IndexIsValid(row, column, true);
+				
+				Items[row, column] = value;
 			}
 		}
 		#endregion
@@ -733,7 +741,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
 		public static bool RowIndexIsValid<T>(T[,] matrix, int row, bool isThrowException = false)
 		{
-			if(row < 0 && row >= matrix.GetLength(0))
+			if(row < 0 || row >= matrix.GetLength(0))
 			{
 				if(isThrowException)
 				{
@@ -784,7 +792,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
 		public static bool ColumnIndexIsValid<T>(T[,] matrix, int column, bool isThrowException = false)
 		{
-			if(column < 0 && column >= matrix.GetLength(1))
+			if(column < 0 || column >= matrix.GetLength(1))
 			{
 				if(isThrowException)
 				{
@@ -811,7 +819,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
 		public bool IndexIsValid(int row, int column, bool isThrowException = false)
 		{
-			return (RowIndexIsValid(row, isThrowException) && ColumnIndexIsValid(column, isThrowException));
+			return IndexIsValid(this, row, column, isThrowException);
 		}
 
 		/// <summary>
@@ -824,7 +832,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает истину если индекс валидный, иначе выбрасывает соответствующее исключение.</returns>
 		public bool IndexIsValid(Matrix matrix, int row, int column, bool isThrowException = false)
 		{
-			return (RowIndexIsValid(matrix, row, isThrowException) && ColumnIndexIsValid(matrix, column, isThrowException));
+			return IndexIsValid(matrix.Items, row, column, isThrowException);
 		}
 
 		/// <summary>

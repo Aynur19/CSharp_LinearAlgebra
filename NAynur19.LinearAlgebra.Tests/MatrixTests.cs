@@ -452,17 +452,32 @@ namespace NAynur19.LinearAlgebra.Tests
 		/// <param name="columnIndex">Индекс столбца.</param>
 		[Theory]
 		[MemberData(nameof(MatrixIndexator_IndexOutMatrixSize_Data))]
-		public void MatrixIndexator_IndexOutMatrixSize_ThrowException(int rows, int columns, int rowIndex, int columnIndex)
+		public void MatrixIndexatorSet_IndexOutMatrixSize_ThrowException(int rows, int columns, int rowIndex, int columnIndex)
+		{
+			var matrix = new Matrix(rows, columns);
+			double newValue = 10;
+			
+			Action setterCode = () => matrix[rowIndex, columnIndex] = newValue;
+			Assert.Throws<LinearAlgebraException>(setterCode);
+		}
+
+		/// <summary>
+		/// Тестирование индексатора.
+		/// Выброс исключения, если в индексаторе указываются индексы выходящие за пределы матрицы.
+		/// </summary>
+		/// <param name="rows">Количество строк.</param>
+		/// <param name="columns">Количество столбцов.</param>
+		/// <param name="rowIndex">Индекс строки.</param>
+		/// <param name="columnIndex">Индекс столбца.</param>
+		[Theory]
+		[MemberData(nameof(MatrixIndexator_IndexOutMatrixSize_Data))]
+		public void MatrixIndexatorGet_IndexOutMatrixSize_ThrowException(int rows, int columns, int rowIndex, int columnIndex)
 		{
 			var matrix = new Matrix(rows, columns);
 			double currentValue = -10;
-			double newValue = 10;
-			
-			Action getterCode = () => currentValue = matrix[rowIndex, columnIndex];
-			Action setterCode = () => matrix[rowIndex, columnIndex] = newValue;
 
+			Action getterCode = () => currentValue = matrix[rowIndex, columnIndex];
 			Assert.Throws<LinearAlgebraException>(getterCode);
-			Assert.Throws<LinearAlgebraException>(setterCode);
 		}
 
 		/// <summary>
