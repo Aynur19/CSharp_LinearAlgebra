@@ -631,11 +631,11 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Multiplication on Matrix
+		#region matrix Multiplication on Matrix
 		/// <summary>
 		/// Произведение матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица.</param>
+		/// <param name="matrix">Матрица даннх.</param>
 		/// <returns>возвращает новую матрицу - результат произведения 2-х матриц.</returns>
 		public Matrix Multiplication(Matrix matrix)
 		{
@@ -645,7 +645,7 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Произведение матриц.
 		/// </summary>
-		/// <param name="matrix">Матрица.</param>
+		/// <param name="matrix">Матрица данных.</param>
 		/// <returns>возвращает новую матрицу - результат произведения 2-х матриц.</returns>
 		public Matrix Multiplication(double[,] matrix)
 		{
@@ -655,9 +655,9 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Произведение матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 2.</param>
-		/// <returns>возвращает новую матрицу - результат произведения 2-х матриц.</returns>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
+		/// <returns>Возвращает новую матрицу - результат произведения 2-х матриц.</returns>
 		public static Matrix Multiplication(Matrix matrix1, Matrix matrix2)
 		{
 			return Multiplication(matrix1.Items, matrix2.Items);
@@ -666,16 +666,12 @@ namespace NAynur19.LinearAlgebra
 		/// <summary>
 		/// Произведение матриц.
 		/// </summary>
-		/// <param name="matrix1">Матрица 1.</param>
-		/// <param name="matrix2">Матрица 2.</param>
-		/// <returns>возвращает новую матрицу - результат произведения 2-х матриц.</returns>
+		/// <param name="matrix1">Матрица данных 1.</param>
+		/// <param name="matrix2">Матрица данных 2.</param>
+		/// <returns>Возвращает новую матрицу - результат произведения 2-х матриц.</returns>
 		public static Matrix Multiplication(double[,] matrix1, double[,] matrix2)
 		{
-
-			if(matrix1.GetLength(1) != matrix2.GetLength(0))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.MatrixSizeNonValidForMultiplication);
-			}
+			Matrix.SizeIsValidForMultiplication(matrix1, matrix2, true);
 
 			var result = new Matrix(matrix1.GetLength(0), matrix2.GetLength(1));
 
