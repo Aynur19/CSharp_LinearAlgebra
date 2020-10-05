@@ -38,12 +38,13 @@ namespace NAynur19.LinearAlgebra
 		public static string EndIndexOutOfVectorSizeException => "Конечный индекс находится за пределами массива.";
 		public static string EndIndexLessStartIndexOfVectorException => "Конечный индекс меньше стартового индекса массива.";
 		public static string VectorSizeNonEqualException => "Размеры векторов не одинаковы.";
-
 		#endregion
 
+		#region Matrix Exceptions
 		public static string MatrixSizeLessOneException => "Размер матрицы не может быть меньше 1";
-		public static string IndexOutOfMatrixSizeException => "Индекс находится за пределами массива.";
-		public static string MatrixSizeNonEqual => "Размеры матриц не одинаковы";
+		public static string IndexOutOfMatrixSizeException => "Индексы находится за пределами массива.";
+		public static string MatrixSizeNonEqualException => "Размеры матриц не одинаковы";
 		public static string MatrixSizeNonValidForMultiplication => "Размеры матриц не подходят для произведения";
+		#endregion
 	}
 }
