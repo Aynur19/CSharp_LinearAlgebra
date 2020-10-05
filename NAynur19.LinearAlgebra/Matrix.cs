@@ -629,7 +629,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает новую матрицу - результат произведения 2-х матриц.</returns>
 		public static Matrix Multiplication(Matrix matrix1, Matrix matrix2)
 		{
-			return Multiplication(matrix1.Items, matrix2.Items);
+			return new Matrix(Multiplication(matrix1.Items, matrix2.Items));
 		}
 
 		/// <summary>
@@ -638,15 +638,15 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix1">Матрица данных 1.</param>
 		/// <param name="matrix2">Матрица данных 2.</param>
 		/// <returns>Возвращает новую матрицу - результат произведения 2-х матриц.</returns>
-		public static Matrix Multiplication(double[,] matrix1, double[,] matrix2)
+		public static double[,] Multiplication(double[,] matrix1, double[,] matrix2)
 		{
 			Matrix.SizeIsValidForMultiplication(matrix1, matrix2, true);
 
-			var result = new Matrix(matrix1.GetLength(0), matrix2.GetLength(1));
+			var result = new double[matrix1.GetLength(0), matrix2.GetLength(1)];
 
-			for(int resultRow = 0; resultRow < result.Rows; resultRow++)
+			for(int resultRow = 0; resultRow < result.GetLength(0); resultRow++)
 			{
-				for(int resultColumn = 0; resultColumn < result.Columns; resultColumn++)
+				for(int resultColumn = 0; resultColumn < result.GetLength(1); resultColumn++)
 				{
 					result[resultRow, resultColumn] = Vector.ScalarMultiplication(Matrix.GetRow(matrix1, resultRow), Matrix.GetColumn(matrix2, resultColumn));
 				}
