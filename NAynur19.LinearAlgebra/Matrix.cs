@@ -576,7 +576,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает новую матрицу - результат умножения матрицы на скаляр.</returns>
 		public static Matrix MultiplicationByScalar(Matrix matrix, double scalar)
 		{
-			return MultiplicationByScalar(matrix.Items, scalar);
+			return new Matrix(MultiplicationByScalar(matrix.Items, scalar));
 		}
 
 		/// <summary>
@@ -585,12 +585,12 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="scalar">Скаляр.</param>
 		/// <returns>Возвращает новую матрицу - результат умножения матрицы на скаляр.</returns>
-		public static Matrix MultiplicationByScalar(double[,] matrix, double scalar)
+		public static double[,] MultiplicationByScalar(double[,] matrix, double scalar)
 		{
-			var result = new Matrix(matrix.GetLength(0), matrix.GetLength(1));
-			for(int row = 0; row < result.Rows; row++)
+			var result = new double[matrix.GetLength(0), matrix.GetLength(1)];
+			for(int row = 0; row < result.GetLength(0); row++)
 			{
-				for(int column = 0; column < result.Columns; column++)
+				for(int column = 0; column < result.GetLength(1); column++)
 				{
 					result[row, column] = matrix[row, column] * scalar;
 				}
