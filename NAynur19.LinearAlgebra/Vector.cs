@@ -123,7 +123,6 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Getters
 		#region Get Middle Item
 		/// <summary>
 		/// Получение элемента вектора, находящегося в середине.
@@ -530,7 +529,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Get Minimum
+		#region Vector Get Minimum Item
 		/// <summary>
 		/// Получение минимального значения и индекса данного элемента вектора.
 		/// </summary>
@@ -571,10 +570,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает кортеж: индекс и минимальное значение элемента вектора.</returns>
 		public static (int, T) GetMin<T>(T[] vector, int start, int end) where T : IComparable
 		{
-			if(!IndexIsValid(vector, start, end))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
-			}
+			StartEndIsValid(vector, start, end);
 
 			(int, T) min = (start, vector[start]);
 			for(int i = start; i <= end; i++)
@@ -587,7 +583,6 @@ namespace NAynur19.LinearAlgebra
 
 			return min;
 		}
-		#endregion
 		#endregion
 
 		#region Vector Set Dimension
@@ -606,7 +601,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Set Items
+		#region Vector Set Items
 		/// <summary>
 		/// Заполнение вектора одним значением.
 		/// </summary>
