@@ -590,7 +590,7 @@ namespace NAynur19.LinearAlgebra
 		#endregion
 		#endregion
 
-		#region Setters
+		#region Vector Set Dimension
 		/// <summary>
 		/// Установка размерности вектора.
 		/// </summary>
@@ -601,11 +601,10 @@ namespace NAynur19.LinearAlgebra
 			{
 				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.VectorSizeLessOneException);
 			}
-			else
-			{
-				Dimension = dimension;
-			}
+			
+			Dimension = dimension;
 		}
+		#endregion
 
 		#region Set Items
 		/// <summary>
@@ -657,7 +656,6 @@ namespace NAynur19.LinearAlgebra
 				vector[i] = item;
 			}
 		}
-		#endregion
 		#endregion
 
 		#region Vectors Concatination
