@@ -372,7 +372,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает инвертированную матрицу.</returns>
 		public static Matrix GetInvertMatrix(Matrix matrix)
 		{
-			return GetInvertMatrix(matrix.Items);
+			return new Matrix(GetInvertMatrix(matrix.Items));
 		}
 
 		/// <summary>
@@ -380,12 +380,12 @@ namespace NAynur19.LinearAlgebra
 		/// </summary>
 		/// <param name="matrix">Исходная матрица.</param>
 		/// <returns>Возвращает инвертированную матрицу.</returns>
-		public static Matrix GetInvertMatrix(double[,] matrix)
+		public static double[,] GetInvertMatrix(double[,] matrix)
 		{
-			var result = new Matrix(matrix.GetLength(0), matrix.GetLength(1));
-			for(int row = 0; row < result.Rows; row++)
+			var result = new double[matrix.GetLength(0), matrix.GetLength(1)];
+			for(int row = 0; row < result.GetLength(0); row++)
 			{
-				for(int column = 0; column < result.Columns; column++)
+				for(int column = 0; column < result.GetLength(1); column++)
 				{
 					result[row, column] = -matrix[row, column];
 				}
