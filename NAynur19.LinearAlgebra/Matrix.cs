@@ -279,6 +279,7 @@ namespace NAynur19.LinearAlgebra
 			return result;
 		}
 
+		#region Matrix Get Column
 		/// <summary>
 		/// Получение столбца матрицы по указанному индексу.
 		/// </summary>
@@ -297,7 +298,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает новый вектор - стобец из матрицы по указанному индексу.</returns>
 		public static Vector GetColumn(Matrix matrix, int column)
 		{
-			return GetColumn(matrix.Items, column);
+			return new Vector(GetColumn(matrix.Items, column));
 		}
 
 		/// <summary>
@@ -306,21 +307,19 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="column">Индекс столбца.</param>
 		/// <returns>Возвращает новый вектор - стобец из матрицы по указанному индексу.</returns>
-		public static Vector GetColumn(double[,] matrix, int column)
+		public static double[] GetColumn(double[,] matrix, int column)
 		{
-			if(!ColumnIndexIsValid(matrix, column))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfMatrixSizeException);
-			}
-
-			var result = new Vector(matrix.GetLength(0));
-			for(int row = 0; row < result.Dimension; row++)
+			Matrix.ColumnIndexIsValid(matrix, column, true);
+			
+			var result = new double[matrix.GetLength(0)];
+			for(int row = 0; row < result.Length; row++)
 			{
 				result[row] = matrix[row, column];
 			}
 
 			return result;
 		}
+		#endregion
 		#endregion
 
 		#region Matrix Invert
