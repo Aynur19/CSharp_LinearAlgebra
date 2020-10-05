@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace NAynur19.LinearAlgebra
@@ -235,7 +236,7 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
-		#region Getters
+		#region Matrix Get Row
 		/// <summary>
 		/// Получение строки матрицы по указанному индексу.
 		/// </summary>
@@ -254,7 +255,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает новый вектор - строку из матрицы по указанному индексу.</returns>
 		public static Vector GetRow(Matrix matrix, int row)
 		{
-			return GetRow(matrix.Items, row);
+			return new Vector(GetRow(matrix.Items, row));
 		}
 
 		/// <summary>
@@ -263,21 +264,19 @@ namespace NAynur19.LinearAlgebra
 		/// <param name="matrix">Матрица.</param>
 		/// <param name="row">Индекс строки.</param>
 		/// <returns>Возвращает новый вектор - строку из матрицы по указанному индексу.</returns>
-		public static Vector GetRow(double[,] matrix, int row)
+		public static double[] GetRow(double[,] matrix, int row)
 		{
-			if(!RowIndexIsValid(matrix, row))
-			{
-				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfMatrixSizeException);
-			}
+			Matrix.RowIndexIsValid(matrix, row, true);
 
-			var result = new Vector(matrix.GetLength(1));
-			for(int column = 0; column < result.Dimension; column++)
+			var result = new double[matrix.GetLength(1)];
+			for(int column = 0; column < result.Length; column++)
 			{
 				result[column] = matrix[row, column];
 			}
 
 			return result;
 		}
+		#endregion
 
 		#region Matrix Get Column
 		/// <summary>
@@ -319,7 +318,6 @@ namespace NAynur19.LinearAlgebra
 
 			return result;
 		}
-		#endregion
 		#endregion
 
 		#region Matrix Invert
