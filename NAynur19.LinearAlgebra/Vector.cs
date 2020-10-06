@@ -561,6 +561,43 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
+		#region Vector Get Sum
+		/// <summary>
+		/// Получение суммы элементов вектора.
+		/// </summary>
+		/// <returns>Возвращает сумму элементов вектора.</returns>
+		public double GetSum()
+		{
+			return GetSum(this);
+		}
+
+		/// <summary>
+		/// Получение суммы элементов вектора.
+		/// </summary>
+		/// <param name="vector">Вектора данных.</param>
+		/// <returns>Возвращает сумму элементов вектора.</returns>
+		public static double GetSum(Vector vector)
+		{
+			return GetSum(vector.Items);
+		}
+		
+		/// <summary>
+		/// Получение суммы элементов вектора.
+		/// </summary>
+		/// <param name="vector">Вектора данных.</param>
+		/// <returns>Возвращает сумму элементов вектора.</returns>
+		public static double GetSum(double[] vector)
+		{
+			var result = 0.0;
+			for(int i = 0; i < vector.Length; i++)
+			{
+				result += vector[i];
+			}
+
+			return result;
+		}
+		#endregion
+
 		#region Vector Set Dimension
 		/// <summary>
 		/// Установка размерности вектора.
