@@ -697,6 +697,96 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
+		#region Vector Insert Vector
+		/// <summary>
+		/// Вставка вектора в текущий вектор.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="start">Начальный индекс вставки.</param>
+		/// <param name="end">Конечный индекс вставки.</param>
+		/// <returns>Возвращает текущий вектор - результат вставки вектора в текущий вектор по указанному диапазону.</returns>
+		public Vector InsertVector(Vector vector,int start, int end)
+		{
+			return InsertVector(vector.Items, start, end);
+		}
+
+		/// <summary>
+		/// Вставка вектора в текущий вектор.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <param name="start">Начальный индекс вставки.</param>
+		/// <param name="end">Конечный индекс вставки.</param>
+		/// <returns>Возвращает текущий вектор - результат вставки вектора в текущий вектор по указанному диапазону.</returns>
+		public Vector InsertVector(double[] vector, int start, int end)
+		{
+			Vector.StartEndIsValid(this, start, end);
+			if(vector.Length < end - start)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
+			}
+
+			for(int i = start; i <= end; i++)
+			{
+				this[i] = vector[i - start];
+			}
+
+			return this;
+		}
+
+		/// <summary>
+		/// Вставка вектора в другой вектор.
+		/// </summary>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
+		/// <param name="start">Начальный индекс вставки.</param>
+		/// <param name="end">Конечный индекс вставки.</param>
+		/// <returns>Возвращает новый вектор - результат вставки вектора 2 в вектор 1 по указанному диапазону.</returns>
+		public static Vector InsertVector(Vector vector1, Vector vector2, int start, int end)
+		{
+			return new Vector(Vector.InsertVector(vector1, vector2, start, end));
+		}
+
+		/// <summary>
+		/// Вставка вектора в другой вектор.
+		/// </summary>
+		/// <typeparam name="T">Универсальный тип данных.</typeparam>
+		/// <param name="vector1">Вектор данных 1.</param>
+		/// <param name="vector2">Вектор данных 2.</param>
+		/// <param name="start">Начальный индекс вставки.</param>
+		/// <param name="end">Конечный индекс вставки.</param>
+		/// <returns>Возвращает новый вектор - результат вставки вектора 2 в вектор 1 по указанному диапазону.</returns>
+		public static T[] InsertVector<T>(T[] vector1, T[] vector2, int start, int end) 
+		{
+			Vector.StartEndIsValid(vector1, start, end);
+			if(vector2.Length < end - start)
+			{
+				throw new LinearAlgebraException(LinearAlgebraExceptionMessage.IndexOutOfVectorSizeException);
+			}
+
+			var result = new T[vector1.Length];
+
+			for(int i = 0; i < start; i++)
+			{
+				result[i] = vector1[i];
+			}
+
+			for(int i = start; i <= end; i++)
+			{
+				vector1[i] = vector2[i - start];
+			}
+
+			if(end >= vector1.Length)
+			{
+				for(int i = end + 1; i < vector1.Length; i++)
+				{
+					result[i] = vector1[i];
+				}
+			}
+
+			return result;
+		}
+		#endregion
+
 		#region Vectors Concatination
 		/// <summary>
 		/// Конкатенация векторов.
