@@ -598,6 +598,37 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
+		#region Vector Get Average
+		/// <summary>
+		/// Получение среднего значения вектора.
+		/// </summary>
+		/// <returns>Возвращает среднее значение вектора.</returns>
+		public double GetAvg()
+		{
+			return GetAvg(this);
+		}
+
+		/// <summary>
+		/// Получение среднего значения вектора.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает среднее значение вектора.</returns>
+		public static double GetAvg(Vector vector)
+		{
+			return GetAvg(vector.Items);
+		}
+
+		/// <summary>
+		/// Получение среднего значения вектора.
+		/// </summary>
+		/// <param name="vector">Вектор данных.</param>
+		/// <returns>Возвращает среднее значение вектора.</returns>
+		public static double GetAvg(double[] vector)
+		{
+			return Vector.GetSum(vector) / vector.Length;
+		}
+		#endregion
+
 		#region Vector Set Dimension
 		/// <summary>
 		/// Установка размерности вектора.
