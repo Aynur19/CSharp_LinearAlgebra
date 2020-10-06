@@ -347,6 +347,42 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
+		#region Matrix Get Column Average
+		/// <summary>
+		/// Получение среднего значения элементов столбца матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="column">Индекс столбца.</param>
+		/// <returns>Возвращает среднее значение элементов столбца матрицы по указанному индексу.</returns>
+		public double GetColumnAvg(int column)
+		{
+			return GetColumnAvg(this, column);
+		}
+
+		/// <summary>
+		/// Получение среднего значения элементов столбца матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <param name="column">Индекс столбца.</param>
+		/// <returns>Возвращает среднее значение элементов столбца матрицы по указанному индексу.</returns>
+		public static double GetColumnAvg(Matrix matrix, int column)
+		{
+			return GetColumnAvg(matrix.Items, column);
+		}
+
+		/// <summary>
+		/// Получение среднего значения элементов столбца матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <param name="column">Индекс столбца.</param>
+		/// <returns>Возвращает среднее значение элементов столбца матрицы по указанному индексу.</returns>
+		public static double GetColumnAvg(double[,] matrix, int column)
+		{
+			Matrix.ColumnIndexIsValid(matrix, column, true);
+
+			return Vector.GetAvg(Matrix.GetColumn(matrix, column));
+		}
+		#endregion
+
 		#region Matrix Invert
 		/// <summary>
 		/// Инвертирование матрицы.
