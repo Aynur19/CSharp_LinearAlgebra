@@ -311,6 +311,42 @@ namespace NAynur19.LinearAlgebra
 		}
 		#endregion
 
+		#region Matrix Get Column Sum
+		/// <summary>
+		/// Получение суммы элементов столбца матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="column">Индекс столбца.</param>
+		/// <returns>Возвращает сумму элементов столбца матрицы по указанному индексу.</returns>
+		public double GetColumnSum(int column)
+		{
+			return GetColumnSum(this, column);
+		}
+
+		/// <summary>
+		/// Получение суммы элементов столбца матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <param name="column">Индекс столбца.</param>
+		/// <returns>Возвращает сумму элементов столбца матрицы по указанному индексу.</returns>
+		public static double GetColumnSum(Matrix matrix, int column)
+		{
+			return GetColumnSum(matrix.Items, column);
+		}
+
+		/// <summary>
+		/// Получение суммы элементов столбца матрицы по указанному индексу.
+		/// </summary>
+		/// <param name="matrix">Матрица данных.</param>
+		/// <param name="column">Индекс столбца.</param>
+		/// <returns>Возвращает сумму элементов столбца матрицы по указанному индексу.</returns>
+		public static double GetColumnSum(double[,] matrix, int column)
+		{
+			Matrix.ColumnIndexIsValid(matrix, column, true);
+
+			return Vector.GetSum(Matrix.GetColumn(matrix, column));
+		}
+		#endregion
+
 		#region Matrix Invert
 		/// <summary>
 		/// Инвертирование матрицы.
@@ -401,7 +437,7 @@ namespace NAynur19.LinearAlgebra
 		/// <returns>Возвращает текущую матрицу - результат сложения матриц.</returns>
 		public Matrix Addation(double[,] matrix)
 		{
-			if(Matrix.SizeIsEqual(this.Items, matrix, true)) ;
+			Matrix.SizeIsEqual(this.Items, matrix, true);
 			for(int row = 0; row < this.Rows; row++)
 			{
 				for(int column = 0; column < this.Columns; column++)
